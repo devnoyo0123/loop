@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="500" viewBox="0 0 1024 500">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="0%" r="120%">
+      <stop offset="0%" stop-color="#171D2B"/>
+      <stop offset="55%" stop-color="#10141D"/>
+      <stop offset="100%" stop-color="#0B0D12"/>
+    </radialGradient>
+    <linearGradient id="arc" x1="100%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#A78BFA"/>
+      <stop offset="100%" stop-color="#7DE2C3"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1024" height="500" fill="url(#bg)"/>
+
+  <!-- 위쪽: 타임라인 — 과거 로그들이 흐르고 '지금'에서 멈춘다 -->
+  <line x1="80" y1="88" x2="820" y2="88" stroke="#2A3142" stroke-width="3" stroke-dasharray="2 14" stroke-linecap="round"/>
+  <circle cx="120" cy="88" r="9" fill="#6E5BAE" opacity="0.55"/>
+  <circle cx="250" cy="88" r="9" fill="#6E5BAE" opacity="0.7"/>
+  <circle cx="380" cy="88" r="9" fill="#6E5BAE" opacity="0.85"/>
+  <circle cx="510" cy="88" r="9" fill="#8B7CC9" opacity="0.9"/>
+  <circle cx="640" cy="88" r="9" fill="#6E5BAE"/>
+  <circle cx="820" cy="88" r="12" fill="#7DE2C3"/>
+
+  <!-- 로그 카드 3장 (흐릿한 대시 = 글) -->
+  <g>
+    <rect x="96"  y="132" width="220" height="86" rx="12" fill="#121722" stroke="#232A3A"/>
+    <rect x="116" y="156" width="140" height="8" rx="4" fill="#2A3142"/>
+    <rect x="116" y="180" width="90"  height="8" rx="4" fill="#232A3A"/>
+  </g>
+  <g>
+    <rect x="402" y="132" width="220" height="86" rx="12" fill="#121722" stroke="#232A3A"/>
+    <rect x="422" y="156" width="150" height="8" rx="4" fill="#2A3142"/>
+    <rect x="422" y="180" width="70"  height="8" rx="4" fill="#232A3A"/>
+  </g>
+  <g>
+    <rect x="708" y="132" width="220" height="86" rx="12" fill="#141B29" stroke="#2C3A50"/>
+    <rect x="728" y="156" width="130" height="8" rx="4" fill="#3A465C"/>
+    <rect x="728" y="180" width="84"  height="8" rx="4" fill="#2A3142"/>
+  </g>
+
+  <!-- 중앙: 마크 + 워드마크 -->
+  <g transform="translate(348 318) scale(0.30) translate(-512 -480)">
+    <circle cx="330" cy="730" r="36" fill="#6E5BAE"/>
+    <path d="M 372 730 C 856 730, 856 294, 478 294"
+          fill="none" stroke="url(#arc)" stroke-width="56" stroke-linecap="round"/>
+    <polygon points="402,294 528,236 528,352" fill="#7DE2C3"/>
+    <circle cx="330" cy="294" r="54" fill="#7DE2C3"/>
+  </g>
+  <text x="450" y="366"
+        font-family="'Helvetica Neue','Apple SD Gothic Neo',sans-serif"
+        font-size="104" font-weight="700" letter-spacing="6" fill="#E8EAED">Loop</text>
+
+  <text x="512" y="470" text-anchor="middle"
+        font-family="'Apple SD Gothic Neo',sans-serif"
+        font-size="28" letter-spacing="2" fill="#9AA0A6">흘러간 하루를 다시 돌리는 기록</text>
+</svg>

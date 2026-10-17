@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Android 11 이하 자동 백업 규칙 — DB·설정을 통째로 백업한다. 제외 없음. -->
+<full-backup-content>
+    <include domain="file" path="."/>
+    <include domain="database" path="."/>
+    <include domain="sharedpref" path="."/>
+</full-backup-content>

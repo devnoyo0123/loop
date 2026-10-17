@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <defs>
+    <radialGradient id="bg" cx="38%" cy="30%" r="95%">
+      <stop offset="0%" stop-color="#171D2B"/>
+      <stop offset="55%" stop-color="#10141D"/>
+      <stop offset="100%" stop-color="#0B0D12"/>
+    </radialGradient>
+    <linearGradient id="ring" x1="10%" y1="0%" x2="90%" y2="100%">
+      <stop offset="0%" stop-color="#9DF2D9"/>
+      <stop offset="100%" stop-color="#6BD9B8"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1024" height="1024" fill="url(#bg)"/>
+
+  <!-- 되돌아오는 고리: 295° 링, 끝에 접선 방향 화살촉 -->
+  <path d="M 772.8 442.1 A 270 270 0 1 1 558.9 246.1"
+        fill="none" stroke="url(#ring)" stroke-width="94" stroke-linecap="round"/>
+  <polygon points="652.5,262.6 548.8,303.2 569.0,189.0" fill="#7DE2C3"/>
+
+  <!-- 틈의 라벤더 점 = 방금 남긴 로그 -->
+  <circle cx="694.2" cy="312.8" r="40" fill="#A78BFA"/>
+</svg>

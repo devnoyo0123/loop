@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Android 12+ 데이터 추출 규칙 — 폰 교체·재설치에도 로그가 살아남게.
+     구글 클라우드 백업과 기기간 이전(D2D)을 모두 허용한다. 제외 없음:
+     DB(logs·이미지 포함)·설정 전부가 백업 대상. (25MB 한도는 docs 참고) -->
+<data-extraction-rules>
+    <cloud-backup>
+        <include domain="file" path="."/>
+        <include domain="database" path="."/>
+        <include domain="sharedpref" path="."/>
+    </cloud-backup>
+    <device-transfer>
+        <include domain="file" path="."/>
+        <include domain="database" path="."/>
+        <include domain="sharedpref" path="."/>
+    </device-transfer>
+</data-extraction-rules>

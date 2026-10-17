@@ -1,0 +1,216 @@
+{
+  "@@locale": "en",
+  "emptyTimeline": "No logs yet.\nTap + to write your first thought.",
+  "emptyAtDate": "No logs around that time.\nPick another date above, or go back to latest.",
+  "jumpToDate": "Jump to date",
+  "backToLatest": "Back to latest",
+  "searchHint": "Search content & places",
+  "searchEmpty": "No results",
+  "sortRelevance": "Relevance",
+  "sortRecent": "Newest",
+  "editContent": "Edit",
+  "changeTime": "Change time",
+  "deleteAction": "Delete",
+  "cancel": "Cancel",
+  "save": "Save",
+  "delete": "Delete",
+  "stop": "Stop",
+  "deleteLogTitle": "Delete log",
+  "deleteLogMessage": "Delete this log? Forked logs will stay.",
+  "stopRepeatTitle": "Stop loop",
+  "stopRepeatMessage": "Stop the {rule} loop?\nUpcoming fires are cancelled — logs already created stay.",
+  "@stopRepeatMessage": {
+    "placeholders": {
+      "rule": {
+        "type": "String"
+      }
+    }
+  },
+  "composeHint": "On your mind…",
+  "forkOf": "↩ Continuing from {time}",
+  "@forkOf": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "saveLog": "Save log",
+  "attachPhoto": "Attach photos",
+  "reserveAlarm": "Set reminder",
+  "alarmTitle": "⏰ Reminder",
+  "tapToChangeTime": "Tap to change date & time",
+  "in10min": "In 10 min",
+  "in1hour": "In 1 hour",
+  "tomorrow": "Tomorrow",
+  "nextWeek": "Next week",
+  "in1month": "In a month",
+  "loopCurveHint": "Forgetting-curve review #{n} · suggested {interval}",
+  "custom": "Custom",
+  "notifyAtThisTime": "Notify me at this time",
+  "repeatTitle": "↩ Loop",
+  "repeatDesc": "With repeat on, a continuation of this log is created automatically on every fire. Stop anytime.",
+  "preset10min": "10 min",
+  "preset30min": "30 min",
+  "preset1hour": "1 hour",
+  "preset3hours": "3 hours",
+  "preset6hours": "6 hours",
+  "presetDaily": "Daily",
+  "fireTime": "Fire time",
+  "unitMinutes": "min",
+  "unitHours": "hr",
+  "nextFire": "Next {time} · then {rule}",
+  "@nextFire": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      },
+      "rule": {
+        "type": "String"
+      }
+    }
+  },
+  "ruleEveryMinutes": "Every {n} min",
+  "@ruleEveryMinutes": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "ruleEveryHours": "Every {n} hr",
+  "@ruleEveryHours": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "ruleDaily": "Daily at {time}",
+  "@ruleDaily": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "ruleWeekday": "Weekdays at {time}",
+  "@ruleWeekday": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "presetWeekday": "Weekdays",
+  "upcomingTitle": "Upcoming · 7 days",
+  "upcomingEmpty": "No loops scheduled this week",
+  "noContent": "(no content)",
+  "continuedFrom": "↩ Continued from {time}",
+  "@continuedFrom": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "locationRecorded": "Location saved",
+  "repeatNth": "Loop #{n}",
+  "@repeatNth": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "repeatEnded": "Loop ended",
+  "loopAction": "↩ Loop",
+  "loopWriteNow": "Write now",
+  "loopAgain": "Remind me",
+  "loopModeOnce": "Once",
+  "loopModeRepeat": "Repeat",
+  "loopNextShort": "Next {time}",
+  "loopFireCount": "Fired {n} times so far",
+  "loopJump": "Go to original",
+  "loopStop": "Stop loop",
+  "loopEndedInfo": "This loop has ended",
+  "loopViewAction": "View loop chain",
+  "loopWriteAction": "Write",
+  "loopViewBack": "Back to timeline",
+  "locationCapture": "Location",
+  "locationCaptureDesc": "Automatically attach place & weather to logs",
+  "loopArm": "Set loop",
+  "emptyWriteHint": "Empty · tap to write",
+  "openInYoutube": "Open in YouTube",
+  "openInBrowser": "Open in browser",
+  "settingsTitle": "Settings",
+  "settingsData": "Data",
+  "defaultBrowser": "Default browser",
+  "defaultBrowserDesc": "Web links will open in this browser",
+  "systemDefault": "System default",
+  "browserEmpty": "No browsers installed",
+  "exportLogs": "Export everything",
+  "exportAllDesc": "Logs, photos & repeats as one .looplog file",
+  "exporting": "Exporting…",
+  "exportDone": "Exported",
+  "exportCancel": "Export canceled",
+  "exportFail": "Couldn't save the file",
+  "importLogs": "Import",
+  "importAllDesc": "Restore from a .looplog file · existing logs are skipped",
+  "importConfirmMessage": "Adds logs from the file and keeps what's already here.\nLogs with the same ID are skipped, so re-importing the same file never duplicates.",
+  "importing": "Importing…",
+  "importDone": "Imported {logs} logs · {repeats} repeats",
+  "@importDone": {
+    "placeholders": {
+      "logs": {
+        "type": "int"
+      },
+      "repeats": {
+        "type": "int"
+      }
+    }
+  },
+  "importCancel": "Import canceled",
+  "importEmpty": "Nothing to import",
+  "importFail": "Couldn't read the .looplog file",
+  "howNotify": "How should I alert you?",
+  "modeNotif": "Notification",
+  "modeNotifDesc": "Pings once and stops. Default — a gentle nudge",
+  "modeAlarm": "Alarm",
+  "modeAlarmDesc": "Rings until dismissed, even in silent. For must-keep loops",
+  "snoozeAction": "Again in 10 min",
+  "notifAlarmChannelName": "Loop alarms",
+  "testFire": "Preview a fire",
+  "testFireDesc": "Notification in 5s · alarm in 20s",
+  "testFireSoon": "Firing soon: notification (5s) · alarm (20s)",
+  "detailOriginal": "Created",
+  "detailPlace": "Place",
+  "detailWeather": "Weather",
+  "detailPhotos": "Photos",
+  "photoCount": "{n} photos",
+  "@photoCount": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "detailNoContext": "No location, weather, or photos",
+  "detailRecord": "Info",
+  "unknown": "Unknown",
+  "yesterday": "Yesterday",
+  "wmoClear": "Clear",
+  "wmoPartly": "Partly cloudy",
+  "wmoCloudy": "Cloudy",
+  "wmoFog": "Fog",
+  "wmoDrizzle": "Drizzle",
+  "wmoRain": "Rain",
+  "wmoSnow": "Snow",
+  "wmoThunder": "Thunderstorm",
+  "wmoUnknown": "Unknown",
+  "notifRepeatTitle": "↩ Loop",
+  "notifFallbackBody": "Time to revisit",
+  "notifConfirm": "OK",
+  "notifChannelName": "Loops",
+  "notifChannelDesc": "Reminds you when a loop comes back"
+}

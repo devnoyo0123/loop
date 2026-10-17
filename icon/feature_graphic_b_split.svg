@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="500" viewBox="0 0 1024 500">
+  <defs>
+    <radialGradient id="bg" cx="30%" cy="40%" r="110%">
+      <stop offset="0%" stop-color="#171D2B"/>
+      <stop offset="55%" stop-color="#10141D"/>
+      <stop offset="100%" stop-color="#0B0D12"/>
+    </radialGradient>
+    <linearGradient id="arc" x1="100%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#A78BFA"/>
+      <stop offset="100%" stop-color="#7DE2C3"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1024" height="500" fill="url(#bg)"/>
+
+  <!-- 왼쪽: 텍스트 블록 -->
+  <text x="96" y="196"
+        font-family="'Helvetica Neue','Apple SD Gothic Neo',sans-serif"
+        font-size="118" font-weight="700" letter-spacing="6" fill="#E8EAED">Loop</text>
+  <text x="100" y="262"
+        font-family="'Apple SD Gothic Neo',sans-serif"
+        font-size="33" fill="#C6CBD4">흘러간 하루를 다시 돌리는 기록</text>
+  <text x="100" y="330"
+        font-family="'Apple SD Gothic Neo',sans-serif"
+        font-size="24" fill="#9AA0A6">이어쓰기 · 루프 알림 · 반복 · 검색 · 내보내기</text>
+
+  <!-- 밑줄 액센트 -->
+  <rect x="100" y="352" width="120" height="4" rx="2" fill="url(#arc)"/>
+
+  <!-- 오른쪽: 큰 앱 마크 -->
+  <g transform="translate(756 250) scale(0.62) translate(-512 -480)">
+    <circle cx="330" cy="730" r="36" fill="#6E5BAE"/>
+    <path d="M 372 730 C 856 730, 856 294, 478 294"
+          fill="none" stroke="url(#arc)" stroke-width="56" stroke-linecap="round"/>
+    <polygon points="402,294 528,236 528,352" fill="#7DE2C3"/>
+    <circle cx="330" cy="294" r="54" fill="#7DE2C3"/>
+  </g>
+</svg>

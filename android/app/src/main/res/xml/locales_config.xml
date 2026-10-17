@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Android 13+ 앱별 언어 설정 — 시스템 설정 > 앱 > loop > 언어에서 고를 수 있다.
+     Flutter는 이 목록과 supportedLocales로 자동 해석한다. -->
+<locale-config xmlns:android="http://schemas.android.com/apk/res/android">
+    <locale android:name="ko"/>
+    <locale android:name="en"/>
+    <locale android:name="ja"/>
+    <locale android:name="zh"/>
+    <locale android:name="es"/>
+    <locale android:name="vi"/>
+</locale-config>

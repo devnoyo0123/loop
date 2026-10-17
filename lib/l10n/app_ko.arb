@@ -1,0 +1,240 @@
+{
+  "@@locale": "ko",
+  "emptyTimeline": "아직 로그가 없어.\n+ 로 첫 생각을 남겨봐.",
+  "emptyAtDate": "그때는 로그가 없어.\n위에서 날짜를 바꿔보거나 최신으로 돌아가.",
+  "jumpToDate": "날짜로 이동",
+  "backToLatest": "최신으로 돌아가",
+  "searchHint": "내용·장소 검색",
+  "searchEmpty": "검색 결과가 없어",
+  "sortRelevance": "관련도순",
+  "sortRecent": "최신순",
+  "editContent": "내용 편집",
+  "changeTime": "시간 변경",
+  "deleteAction": "삭제",
+  "cancel": "취소",
+  "save": "저장",
+  "delete": "삭제",
+  "stop": "중지",
+  "deleteLogTitle": "로그 삭제",
+  "deleteLogMessage": "이 로그를 삭제할까? 이어쓰인 로그는 그대로 남아.",
+  "stopRepeatTitle": "Loop 중지",
+  "stopRepeatMessage": "{rule} 루프를 멈출까?\n다음 발화부터 취소되고, 이미 만들어진 로그는 남아.",
+  "@stopRepeatMessage": {
+    "placeholders": {
+      "rule": {
+        "type": "String"
+      }
+    }
+  },
+  "composeHint": "지금 생각…",
+  "forkOf": "↩ {time} 로그에 이어쓰기",
+  "@forkOf": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "saveLog": "로그 남기기",
+  "attachPhoto": "사진 첨부",
+  "reserveAlarm": "알림 예약",
+  "alarmTitle": "⏰ 알림 예약",
+  "tapToChangeTime": "탭해서 날짜·시각 바꾸기",
+  "in10min": "10분 후",
+  "in1hour": "1시간 후",
+  "tomorrow": "내일",
+  "nextWeek": "다음 주",
+  "in1month": "1달 후",
+  "loopCurveHint": "망각곡선 {n}번째 복습 · 추천 {interval}",
+  "@loopCurveHint": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      },
+      "interval": {
+        "type": "String"
+      }
+    }
+  },
+  "custom": "직접",
+  "notifyAtThisTime": "이 시각에 알려줘",
+  "repeatTitle": "↩ Loop",
+  "repeatDesc": "반복을 걸면 발화마다 이 로그의 이어쓰기가 자동으로 생성돼. 언제든 멈출 수 있어.",
+  "preset10min": "10분",
+  "preset30min": "30분",
+  "preset1hour": "1시간",
+  "preset3hours": "3시간",
+  "preset6hours": "6시간",
+  "presetDaily": "매일",
+  "fireTime": "발화 시각",
+  "unitMinutes": "분",
+  "unitHours": "시간",
+  "nextFire": "다음 {time} · 이후 {rule}",
+  "@nextFire": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      },
+      "rule": {
+        "type": "String"
+      }
+    }
+  },
+  "ruleEveryMinutes": "{n}분마다",
+  "@ruleEveryMinutes": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "ruleEveryHours": "{n}시간마다",
+  "@ruleEveryHours": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "ruleDaily": "매일 {time}",
+  "@ruleDaily": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "ruleWeekday": "평일 {time}",
+  "@ruleWeekday": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "presetWeekday": "평일",
+  "upcomingTitle": "다가오는 루프 · 7일",
+  "upcomingEmpty": "이번 주엔 예정된 루프가 없어",
+  "noContent": "(내용 없음)",
+  "continuedFrom": "↩ {time} 에서 이어짐",
+  "@continuedFrom": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "locationRecorded": "위치 기록됨",
+  "repeatNth": "Loop {n}회째",
+  "@repeatNth": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "repeatEnded": "Loop 종료",
+  "loopAction": "↩ Loop",
+  "loopWriteNow": "지금 이어쓰기",
+  "loopAgain": "다시 알려줘",
+  "loopModeOnce": "한 번",
+  "loopModeRepeat": "반복",
+  "loopNextShort": "다음 {time}",
+  "@loopNextShort": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "loopFireCount": "지금까지 {n}번 돌아왔어",
+  "@loopFireCount": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "loopJump": "원본으로 이동",
+  "loopStop": "루프 중지",
+  "loopEndedInfo": "이 루프는 종료됐어",
+  "loopViewAction": "루프 보기",
+  "loopWriteAction": "작성하기",
+  "loopViewBack": "되돌아가기",
+  "locationCapture": "위치 기록",
+  "locationCaptureDesc": "로그에 장소·날씨를 자동으로 함께 기록",
+  "loopArm": "Loop 걸기",
+  "emptyWriteHint": "비어 있음 · 탭해서 작성",
+  "openInYoutube": "유튜브에서 열기",
+  "openInBrowser": "브라우저에서 열기",
+  "settingsTitle": "설정",
+  "settingsData": "데이터",
+  "defaultBrowser": "기본 브라우저",
+  "defaultBrowserDesc": "웹 링크를 열 때 이 브라우저로 열려",
+  "systemDefault": "시스템 기본값",
+  "browserEmpty": "설치된 브라우저가 없어",
+  "exportLogs": "전체 내보내기",
+  "exportAllDesc": "로그·사진·반복까지 .looplog 파일 하나로",
+  "exporting": "내보내는 중…",
+  "exportDone": "내보냈어",
+  "exportCancel": "저장을 취소했어",
+  "exportFail": "파일 저장을 못 했어",
+  "importLogs": "가져오기",
+  "importAllDesc": ".looplog 파일에서 복원 · 이미 있는 로그는 건너뛰어",
+  "importConfirmMessage": "기존 로그는 그대로 두고 파일의 로그를 더해.\n이미 있는 로그는 건너뛰니까 같은 파일을 다시 가져와도 중복이 생기지 않아.",
+  "importing": "가져오는 중…",
+  "importDone": "로그 {logs}개 · 반복 {repeats}개를 가져왔어",
+  "@importDone": {
+    "placeholders": {
+      "logs": {
+        "type": "int"
+      },
+      "repeats": {
+        "type": "int"
+      }
+    }
+  },
+  "importCancel": "가져오기를 취소했어",
+  "importEmpty": "가져올 내용이 없어",
+  "importFail": ".looplog 파일을 읽지 못했어",
+  "howNotify": "어떻게 알려줄까?",
+  "modeNotif": "알림",
+  "modeNotifDesc": "한 번 알려주고 끝. 기본 — 조용한 상기",
+  "modeAlarm": "알람",
+  "modeAlarmDesc": "꺼야 멈춤, 무음에도. 꼭 지켜야 할 루프용",
+  "snoozeAction": "10분 후 다시",
+  "notifAlarmChannelName": "루프 알람",
+  "testFire": "발화 체험",
+  "testFireDesc": "5초 뒤 알림 · 20초 뒤 알람이 울려요",
+  "testFireSoon": "잠시 후 알림(5초)·알람(20초)이 울려",
+  "detailOriginal": "원본 기록",
+  "detailPlace": "장소",
+  "detailWeather": "날씨",
+  "detailPhotos": "사진",
+  "photoCount": "{n}장",
+  "@photoCount": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "detailNoContext": "위치·날씨·사진 정보 없음",
+  "detailRecord": "기록",
+  "unknown": "알 수 없음",
+  "yesterday": "어제",
+  "wmoClear": "맑음",
+  "wmoPartly": "구름 조금",
+  "wmoCloudy": "흐림",
+  "wmoFog": "안개",
+  "wmoDrizzle": "이슬비",
+  "wmoRain": "비",
+  "wmoSnow": "눈",
+  "wmoThunder": "뇌우",
+  "wmoUnknown": "알 수 없음",
+  "notifRepeatTitle": "↩ Loop",
+  "notifFallbackBody": "루프 돌아올 시간",
+  "notifConfirm": "확인",
+  "notifChannelName": "루프",
+  "notifChannelDesc": "돌아온 루프를 알려준다"
+}

@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Loop — 알림(A) vs 알람(B) 비교 목업</title>
+<style>
+  :root {
+    --bg: #0B0D12; --surface: #12151D; --surfaceHi: #1A1E2A;
+    --text: #E8EAF2; --dim: #8B90A0; --lav: #A78BFA; --mint: #7DE2C3;
+    --line: #262B3A; --danger: #E5727F;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: radial-gradient(1200px 600px at 50% -100px, #171B28, var(--bg));
+    color: var(--text); font-family: -apple-system, "Segoe UI", "Noto Sans KR", sans-serif;
+    padding: 40px 24px 80px;
+  }
+  .wrap { max-width: 1180px; margin: 0 auto; }
+  h1 { font-size: 24px; font-weight: 800; letter-spacing: .3px; }
+  h1 em { color: var(--lav); font-style: normal; }
+  .sub { color: var(--dim); font-size: 14px; margin: 8px 0 36px; line-height: 1.6; }
+
+  .row { display: flex; gap: 28px; flex-wrap: wrap; justify-content: center; }
+
+  /* ── 폰 프레임 ─────────────────────────────── */
+  .phone {
+    width: 300px; height: 640px; border-radius: 40px;
+    border: 10px solid #000; background: #000;
+    box-shadow: 0 24px 60px rgba(0,0,0,.55), 0 0 0 1px #2a2f3d;
+    position: relative; overflow: hidden; flex: 0 0 auto;
+  }
+  .phone::before { /* 펀치홀 카메라 */
+    content: ""; position: absolute; top: 12px; left: 50%; transform: translateX(-50%);
+    width: 74px; height: 22px; background: #000; border-radius: 12px; z-index: 9;
+  }
+  .screen { position: absolute; inset: 0; overflow: hidden; }
+
+  .cap { margin-top: 14px; }
+  .cap .t { font-size: 15px; font-weight: 700; }
+  .cap .t .tag {
+    display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 11px;
+    margin-right: 6px; vertical-align: 1px;
+  }
+  .cap .d { color: var(--dim); font-size: 12.5px; line-height: 1.7; margin-top: 6px; }
+  .badge-now { background: var(--surfaceHi); color: var(--dim); border: 1px solid var(--line); }
+  .badge-alarm { background: rgba(229,114,127,.15); color: var(--danger); border: 1px solid rgba(229,114,127,.4); }
+  .badge-pick { background: rgba(167,139,250,.15); color: var(--lav); border: 1px solid rgba(167,139,250,.4); }
+
+  /* ── 잠금화면 공통 (A, B) ──────────────────── */
+  .lock { position: absolute; inset: 0; background: linear-gradient(180deg, #1a2030 0%, #10141d 55%, #0B0D12 100%); }
+  .lock .wall {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(340px 240px at 80% 12%, rgba(167,139,250,.14), transparent 70%),
+      radial-gradient(300px 260px at 12% 78%, rgba(125,226,195,.10), transparent 70%);
+  }
+  .lock .clock { position: absolute; top: 52px; left: 24px; }
+  .lock .clock .h { font-size: 56px; font-weight: 300; letter-spacing: -1px; line-height: 1; }
+  .lock .clock .d { color: var(--dim); font-size: 13px; margin-top: 6px; }
+
+  /* A안 — One UI식 헤드업 알림 카드 */
+  .heads-up {
+    position: absolute; top: 128px; left: 14px; right: 14px;
+    background: rgba(28,32,44,.96); border: 1px solid rgba(255,255,255,.06);
+    border-radius: 20px; padding: 14px 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.5);
+    animation: drop .5s ease-out;
+  }
+  @keyframes drop { from { transform: translateY(-16px); opacity: 0; } to { transform: none; opacity: 1; } }
+  .heads-up .row1 { display: flex; align-items: center; gap: 7px; color: var(--dim); font-size: 11.5px; }
+  .heads-up .app { color: var(--mint); font-weight: 700; }
+  .heads-up .body { margin-top: 6px; font-size: 14px; color: var(--text); }
+  .heads-up .time { margin-left: auto; }
+  .heads-up .actions { margin-top: 10px; display: flex; gap: 8px; }
+  .btn-chip {
+    background: var(--surfaceHi); border: 1px solid var(--line); color: var(--text);
+    font-size: 12px; padding: 6px 14px; border-radius: 999px;
+  }
+  .lock .tray {
+    position: absolute; bottom: 22px; left: 0; right: 0; text-align: center;
+    color: var(--dim); font-size: 11px;
+  }
+  .lock .shortcut { position: absolute; bottom: 40px; left: 22px; right: 22px; display: flex; justify-content: space-between; }
+  .lock .shortcut .c { width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,.10); display: grid; place-items: center; font-size: 18px; }
+
+  /* B안 — 전체화면 알람 */
+  .alarm { position: absolute; inset: 0; background: var(--bg); text-align: center; }
+  .alarm .pulse {
+    position: absolute; inset: 0;
+    background: radial-gradient(420px 300px at 50% 38%, rgba(229,114,127,.16), transparent 70%);
+    animation: pulse 1.6s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100% { opacity: .55; } 50% { opacity: 1; } }
+  .alarm .top { position: absolute; top: 46px; left: 0; right: 0; color: var(--dim); font-size: 13px; }
+  .alarm .bell { position: absolute; top: 108px; left: 0; right: 0; font-size: 54px; display: inline-block; animation: ring 1s ease-in-out infinite; transform-origin: 50% 12%; }
+  @keyframes ring {
+    0% { transform: rotate(0); } 12% { transform: rotate(16deg); } 24% { transform: rotate(-14deg); }
+    36% { transform: rotate(10deg); } 48% { transform: rotate(-8deg); } 60%, 100% { transform: rotate(0); }
+  }
+  .alarm .time { position: absolute; top: 176px; left: 0; right: 0; font-size: 66px; font-weight: 200; letter-spacing: -2px; }
+  .alarm .label { position: absolute; top: 258px; left: 0; right: 0; color: var(--lav); font-size: 14px; font-weight: 700; }
+  .alarm .content {
+    position: absolute; top: 292px; left: 32px; right: 32px;
+    font-size: 19px; line-height: 1.5; font-weight: 600; word-break: keep-all;
+  }
+  .alarm .meta { position: absolute; top: 372px; left: 0; right: 0; color: var(--dim); font-size: 12px; }
+  .alarm .chips { position: absolute; top: 400px; left: 0; right: 0; display: flex; justify-content: center; gap: 8px; }
+  .alarm .chip {
+    font-size: 11px; color: var(--dim); border: 1px solid var(--line);
+    padding: 4px 10px; border-radius: 999px; background: var(--surface);
+  }
+  .alarm .btns { position: absolute; bottom: 64px; left: 26px; right: 26px; display: flex; gap: 14px; }
+  .alarm .btns .b {
+    flex: 1; padding: 16px 0; border-radius: 999px; font-size: 15px; font-weight: 700; text-align: center;
+  }
+  .alarm .snooze { background: var(--surfaceHi); color: var(--mint); border: 1px solid rgba(125,226,195,.35); }
+  .alarm .stop { background: var(--lav); color: #0B0D12; }
+  .alarm .hint { position: absolute; bottom: 30px; left: 0; right: 0; color: var(--dim); font-size: 11px; }
+
+  /* C — Loop 걸기 시트 (선택 UI) */
+  .sheet { position: absolute; inset: 0; background: linear-gradient(180deg, #10131b 0%, #0B0D12 100%); }
+  .sheet .appdim { position: absolute; inset: 0 0 46% 0; opacity: .35; padding: 56px 20px 0; color: var(--dim); font-size: 13px; }
+  .sheet .panel {
+    position: absolute; left: 0; right: 0; bottom: 0; top: 42%;
+    background: var(--surface); border-radius: 22px 22px 0 0; padding: 18px 18px 14px;
+    border-top: 1px solid var(--line);
+  }
+  .sheet .grab { width: 40px; height: 4px; border-radius: 2px; background: var(--line); margin: 0 auto 14px; }
+  .sheet .title { font-size: 17px; font-weight: 800; }
+  .sheet .preview {
+    margin-top: 12px; background: var(--surfaceHi); border-radius: 10px; padding: 12px;
+    font-size: 13px; color: var(--text);
+  }
+  .sheet .preview .when { color: var(--dim); font-size: 11.5px; margin-top: 4px; }
+  .seg { margin-top: 14px; display: flex; background: var(--surfaceHi); border-radius: 10px; padding: 3px; }
+  .seg .s { flex: 1; text-align: center; font-size: 13px; color: var(--dim); padding: 8px 0; border-radius: 8px; }
+  .seg .s.on { background: #2A3040; color: var(--text); font-weight: 700; }
+  .sheet .lbl { margin-top: 16px; font-size: 12.5px; color: var(--dim); }
+  .mode { margin-top: 8px; display: flex; gap: 10px; }
+  .mode .m {
+    flex: 1; border: 1.5px solid var(--line); border-radius: 12px; padding: 11px 12px;
+    background: var(--surfaceHi);
+  }
+  .mode .m.on { border-color: var(--lav); background: rgba(167,139,250,.10); }
+  .mode .m .h { font-size: 13.5px; font-weight: 700; }
+  .mode .m.on .h { color: var(--lav); }
+  .mode .m .d { font-size: 11px; color: var(--dim); margin-top: 3px; line-height: 1.5; }
+  .sheet .cta {
+    margin-top: 14px; background: var(--lav); color: #0B0D12; text-align: center;
+    font-weight: 800; font-size: 15px; padding: 13px 0; border-radius: 12px;
+  }
+
+  /* ── 하단 기술 노트 ───────────────────────── */
+  .notes {
+    margin-top: 48px; background: var(--surface); border: 1px solid var(--line);
+    border-radius: 16px; padding: 22px 24px;
+  }
+  .notes h2 { font-size: 16px; margin-bottom: 12px; }
+  .notes ul { list-style: none; }
+  .notes li { color: var(--dim); font-size: 13px; line-height: 1.8; padding-left: 16px; position: relative; }
+  .notes li::before { content: "·"; position: absolute; left: 4px; color: var(--lav); }
+  .notes b { color: var(--text); }
+  @media (max-width: 760px) { .row { gap: 22px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Loop 루프 발화, <em>알림</em>으로 할까 <em>알람</em>으로 할까</h1>
+  <p class="sub">
+    루프를 걸 때마다 하나씩 고를 수 있는 구조(안)입니다. 아래는 실제 안드로이드 스타일로 그린 목업 —
+    소리·무음·방해금지 동작이 서로 다릅니다.
+  </p>
+
+  <div class="row">
+    <!-- ═══════════ A안 : 현재 (알림) ═══════════ -->
+    <div>
+      <div class="phone"><div class="screen">
+        <div class="lock">
+          <div class="wall"></div>
+          <div class="clock"><div class="h">9:00</div><div class="d">10월 18일 (일)</div></div>
+          <div class="heads-up">
+            <div class="row1">
+              <span class="app">↩ Loop</span><span>·</span><span>루프</span>
+              <span class="time">지금</span>
+            </div>
+            <div class="body">블로그 초안 쓰기</div>
+            <div class="actions"><span class="btn-chip">확인</span></div>
+          </div>
+          <div class="shortcut"><div class="c">📞</div><div class="c">📷</div></div>
+          <div class="tray">잠금 화면 — 알림은 위에서 한 번 스윽 내려오고 끝</div>
+        </div>
+      </div></div>
+      <div class="cap">
+        <div class="t"><span class="tag badge-now">A · 현재</span>알림 (notification)</div>
+        <div class="d">
+          소리 <b>한 번</b> · <b>무음이면 조용</b> · 방해금지엔 묵살 ·<br>
+          놓쳐도 알림함에 남는다 — "부드럽게 상기시켜주는" 등급
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════ B안 : 알람형 ═══════════ -->
+    <div>
+      <div class="phone"><div class="screen">
+        <div class="alarm">
+          <div class="pulse"></div>
+          <div class="top">일요일, 10월 18일</div>
+          <span class="bell">🔔</span>
+          <div class="time">9:00</div>
+          <div class="label">↩ Loop · 루프 발화</div>
+          <div class="content">블로그 초안 쓰기</div>
+          <div class="meta">예약한 시각이 됐어요 — 확인하러 돌아와요</div>
+          <div class="chips">
+            <span class="chip">무음에도 울림</span>
+            <span class="chip">끄기 전엔 계속</span>
+            <span class="chip">잠금화면 전체</span>
+          </div>
+          <div class="btns">
+            <div class="b snooze">10분 후 다시</div>
+            <div class="b stop">확인</div>
+          </div>
+          <div class="hint">잠긴 화면도 깨워 전체 화면으로 떠요</div>
+        </div>
+      </div></div>
+      <div class="cap">
+        <div class="t"><span class="tag badge-alarm">B · 신규</span>알람 (alarm)</div>
+        <div class="d">
+          소리가 <b>꺼야 멈춤</b> · <b>알람 볼륨</b>(무음 무시) · 잠금화면도 깨움 ·<br>
+          스누즈(10분 후 다시) 지원 — "반드시 때려 깨워라" 등급
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════ C : 루프 걸 때 선택 UI ═══════════ -->
+    <div>
+      <div class="phone"><div class="screen">
+        <div class="sheet">
+          <div class="appdim">…타임라인 (뒤가 흐려짐)</div>
+          <div class="panel">
+            <div class="grab"></div>
+            <div class="title">↩ Loop</div>
+            <div class="preview">
+              블로그 초안 쓰기
+              <div class="when">다음 10월 18일 (일) 오전 9:00</div>
+            </div>
+            <div class="seg">
+              <div class="s on">한 번</div>
+              <div class="s">반복</div>
+            </div>
+            <div class="lbl">어떻게 알려줄까?</div>
+            <div class="mode">
+              <div class="m">
+                <div class="h">🔔 알림</div>
+                <div class="d">한 번 알려주고 끝.<br>기본값 — 조용한 상기</div>
+              </div>
+              <div class="m on">
+                <div class="h">⏰ 알람</div>
+                <div class="d">꺼야 멈춤, 무음에도.<br>꼭 지켜야 할 루프용</div>
+              </div>
+            </div>
+            <div class="cta">Loop 걸기</div>
+          </div>
+        </div>
+      </div></div>
+      <div class="cap">
+        <div class="t"><span class="tag badge-pick">C · 선택 UI</span>루프를 걸 때 고른다</div>
+        <div class="d">
+          Loop 시트에 "어떻게 알려줄까?"가 추가되고 <b>루프마다</b> 저장됨.<br>
+          반복 루프는 안전을 위해 기본 알림 등급 유지(선택 가능 여부는 논의).
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ 기술 노트 ═══════════ -->
+  <div class="notes">
+    <h2>구현 노트 (B안 선택 시)</h2>
+    <ul>
+      <li><b>소리 반복</b> — 안드로이드 insistent 알림 플래그: 알림을 닫을 때까지 알림음 반복. 네이티브 코드 불필요</li>
+      <li><b>알람 볼륨</b> — audioAttributes = ALARM: 무음 모드에서도 울리고 볼륨도 알람 볼륨을 따름</li>
+      <li><b>전체 화면</b> — fullScreenIntent + manifest에 USE_FULL_SCREEN_INTENT 권한. 안드로이드 14+는
+          사용자가 "알람 및 리마인더" 권한을 허용해야 해서, 앱에서 안내 화면으로 데려다줌.
+          권한이 없으면 자동으로 A안처럼 폴백 — 깨지지 않고 알림으로만 울림</li>
+      <li><b>스누즈</b> — 알림 액션 "10분 후 다시": 기존 "확인" 액션 옆에 추가, 누르면 10분 뒤로 재예약</li>
+      <li><b>저장 구조</b> — logs에 루프별 플래그 컬럼(loop_alarm) 하나 추가. 기존 DB 자동 마이그레이션</li>
+      <li><b>한계</b> — 방해금지(DND) 예외는 시계 앱처럼 자동이 아니라 사용자 허용 필요</li>
+      <li><b>확인 방법</b> — 구현 후 폰 연결해서 실제 알림/알람을 각각 발화시켜 체감 비교 가능</li>
+    </ul>
+  </div>
+</div>
+</body>
+</html>
