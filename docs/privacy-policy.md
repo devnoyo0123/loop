@@ -53,7 +53,7 @@ Loop(이하 "앱")은 기기 안에서만 동작하는 기록 앱입니다. 최�
 
 ### 8. 문의
 
-⚑ 이메일 주소 확정 필요: `______________`
+문의: `theloopapp.official@gmail.com`
 
 ---
 
@@ -103,4 +103,4 @@ The App is not directed at children under 13 and does not knowingly collect thei
 
 ### 8. Contact
 
-⚑ email to be confirmed: `______________`
+Contact: `theloopapp.official@gmail.com`
