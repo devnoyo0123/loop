@@ -162,6 +162,102 @@ GUIDE_LABEL_SHORT = {
 }
 
 
+# 앱 미리보기 15초 영상 — YouTube @loopdailylog, 일부 공개, 2026-11-16 업로드.
+# 랜딩에는 임베드하지 않고 썸네일 + YouTube 링크로 연결 (2026-11-18 사용자 결정).
+# 원본: ~/Movies/Loop-ad-video/videos/<lang>/loop_ad_<lang>_16x9.mp4
+VIDEO_ID = {
+    "en": "A6dQJitaeX4",
+    "zh": "VKvpsoUAerc",
+    "es": "8H8QB_imYXA",
+    "hi": "2wXDdcmTxsk",
+    "ja": "WawnTOkuQ_w",
+    "vi": "WSnocx7TOwo",
+    "it": "OaUJD0OKM2Y",
+    "ko": "KwF9WC3M2cY",
+}
+
+VIDEO_TITLE = {
+    "en": "Watch the app in action",
+    "zh": "看看 Loop 实际操作",
+    "es": "Mira la app en acción",
+    "hi": "ऐप का प्रीव्यू देखें",
+    "ja": "アプリの動きを見る",
+    "vi": "Xem ứng dụng hoạt động",
+    "it": "Guarda l'app in azione",
+    "ko": "앱 미리보기",
+}
+
+# PC 연결(Claude × Loop) 섹션 — loop-skill 플러그인
+PLUGIN_URL = "https://github.com/devnoyo0123/loop-skill"
+PLUGIN_INSTALL = "/plugin marketplace add devnoyo0123/loop-skill\n/plugin install loop@loop"
+
+MCP_TITLE = {
+    "en": "Ask Claude on your PC about your journal",
+    "zh": "在电脑上让 Claude 查询你的记录",
+    "es": "Pregunta por tu diario a Claude en tu PC",
+    "hi": "अपने PC पर Claude से अपनी डायरी के बारे में पूछें",
+    "ja": "PCのClaudeに記録について聞いてみよう",
+    "vi": "Hỏi Claude trên PC về nhật ký của bạn",
+    "it": "Chiedi del tuo diario a Claude sul tuo PC",
+    "ko": "PC의 Claude에게 내 기록을 물어보세요",
+}
+
+MCP_BODY = {
+    "en": "Loop pairs with your computer over the same Wi-Fi. Claude Code on your PC can then search your logs to build morning notes and reviews — read-only, and your logs never leave the phone: only queries and answers travel.",
+    "zh": "Loop 与同一 Wi-Fi 下的电脑配对后，电脑上的 Claude Code 可以搜索你的记录，帮你写晨间笔记和回顾。只读访问，记录不会离开手机——传输的只有提问和回答。",
+    "es": "Loop se empareja con tu ordenador por el mismo Wi-Fi. Así Claude Code en tu PC puede buscar en tus registros para crear notas matutinas y repasos: solo lectura, y tus registros nunca salen del teléfono; solo viajan preguntas y respuestas.",
+    "hi": "Loop उसी Wi-Fi पर आपके कंप्यूटर से जुड़ता है। फिर आपके PC पर Claude Code आपके लॉग खोजकर सुबह के नोट्स और समीक्षा बना सकता है — केवल पढ़ने के लिए, और लॉग फ़ोन से बाहर नहीं जाते; सिर्फ़ सवाल-जवाब आते-जाते हैं।",
+    "ja": "同じWi-Fiのパソコンとペアリングすると、PCのClaude Codeが記録を検索して朝のノートや振り返りを作れます。読み取り専用で、記録はスマホの外に出ません。やり取りされるのは質問と回答だけです。",
+    "vi": "Loop ghép nối với máy tính qua cùng một Wi-Fi. Sau đó Claude Code trên PC có thể tìm nhật ký để viết ghi chú buổi sáng và tổng kết — chỉ đọc, và nhật ký không bao giờ rời điện thoại; chỉ câu hỏi và câu trả lời được trao đổi.",
+    "it": "Loop si abbina al computer sulla stessa Wi-Fi. Così Claude Code sul PC può cercare nelle tue note per creare note mattutine e ripassi — sola lettura, e le note non lasciano mai il telefono: viaggiano solo domande e risposte.",
+    "ko": "같은 Wi-Fi의 컴퓨터와 연결하면 PC의 Claude Code가 기록을 검색해 아침 노트와 회고를 만들어 줍니다. 읽기 전용이고, 기록은 폰을 떠나지 않아요 — 오가는 것은 질의와 답뿐이에요.",
+}
+
+MCP_STEPS = [
+    {
+        "en": "On your computer, install the Loop plugin for Claude Code",
+        "zh": "在电脑上为 Claude Code 安装 Loop 插件",
+        "es": "En tu ordenador, instala el plugin de Loop para Claude Code",
+        "hi": "अपने कंप्यूटर पर Claude Code के लिए Loop प्लगइन इंस्टॉल करें",
+        "ja": "パソコンで Claude Code に Loop プラグインを入れる",
+        "vi": "Trên máy tính, cài plugin Loop cho Claude Code",
+        "it": "Sul computer, installa il plugin di Loop per Claude Code",
+        "ko": "컴퓨터에서 Claude Code에 Loop 플러그인 설치",
+    },
+    {
+        "en": "In Loop: Settings › PC connection › Connect",
+        "zh": "在 Loop 中：设置 › PC 连接 › 连接",
+        "es": "En Loop: Ajustes › Conexión con PC › Conectar",
+        "hi": "Loop में: सेटिंग › PC कनेक्शन › कनेक्ट",
+        "ja": "Loopで：設定 › PC接続 › 接続",
+        "vi": "Trong Loop: Cài đặt › Kết nối PC › Kết nối",
+        "it": "In Loop: Impostazioni › Connessione al PC › Connetti",
+        "ko": "Loop에서: 설정 › PC 연결 › 연결",
+    },
+    {
+        "en": "Type the 8-digit code Claude shows — 'Claude can now search your journal.'",
+        "zh": "输入 Claude 显示的 8 位配对码 —— “Claude 现在可以搜索你的记录了。”",
+        "es": "Escribe el código de 8 dígitos que muestra Claude: «Claude ya puede buscar en tu diario.»",
+        "hi": "Claude दिखाए 8 अंकों का कोड डालें — 'Claude अब आपकी डायरी खोज सकता है।'",
+        "ja": "Claudeが表示する8桁のコードを入力 — 「Claudeが自分の記録を検索できるようになりました。」",
+        "vi": "Nhập mã 8 chữ số Claude hiển thị — “Claude giờ có thể tìm kiếm nhật ký của bạn.”",
+        "it": "Digita il codice a 8 cifre che mostra Claude: «Claude ora può cercare nel tuo diario.»",
+        "ko": "Claude가 보여주는 8자리 코드를 입력 — 'Claude가 이제 내 기록을 검색할 수 있어요.'",
+    },
+]
+
+MCP_GUIDE_LABEL = {
+    "en": "Setup guide — loop-skill on GitHub",
+    "zh": "设置指南 — GitHub 上的 loop-skill",
+    "es": "Guía de configuración — loop-skill en GitHub",
+    "hi": "सेटअप गाइड — GitHub पर loop-skill",
+    "ja": "セットアップガイド — GitHubのloop-skill",
+    "vi": "Hướng dẫn cài đặt — loop-skill trên GitHub",
+    "it": "Guida di configurazione — loop-skill su GitHub",
+    "ko": "설정 가이드 — GitHub의 loop-skill",
+}
+
+
 def arb(lang):
     with open(os.path.join(ROOT, "lib", "l10n", f"app_{lang}.arb"), encoding="utf-8") as f:
         return json.load(f)
@@ -233,7 +329,10 @@ def build(out):
         ]
     ) + f'<a href="mailto:{CONTACT_MAIL}">{spans(CONTACT_LABEL)}</a>'
 
+    mcp_steps_html = "\n          ".join(f"<li>{spans(step)}</li>" for step in MCP_STEPS)
+
     titles_json = json.dumps(STORE_TITLE, ensure_ascii=False)
+    video_json = json.dumps(VIDEO_ID, ensure_ascii=False)
     badges_json = json.dumps(
         {lang: f"/assets/{BADGE_FILE[lang]}" for lang in LANG_IDS}, ensure_ascii=False
     )
@@ -367,6 +466,49 @@ def build(out):
     footer a {{ color: var(--dim); text-decoration: none; }}
     footer a:hover {{ color: var(--lavender); }}
     footer .links {{ display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-bottom: 14px; }}
+
+    .video {{ padding: 8px 0 56px; text-align: center; }}
+    .video-title {{ font-size: clamp(1.2rem, 3vw, 1.5rem); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 22px; }}
+    .video-frame {{
+      position: relative; display: block;
+      max-width: 720px; margin: 0 auto; aspect-ratio: 16 / 9;
+      border-radius: 20px; overflow: hidden; border: 1px solid var(--line);
+      box-shadow: 0 16px 48px rgba(0, 0, 0, .55); background: var(--surface);
+    }}
+    .video-frame img {{ width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .3s; }}
+    .video-frame:hover img {{ transform: scale(1.02); }}
+    .video-play {{
+      position: absolute; left: 50%; top: 50%; width: 76px; height: 76px; margin: -38px 0 0 -38px;
+      border-radius: 50%; background: rgba(0, 0, 0, .6); border: 2px solid rgba(255, 255, 255, .85);
+      transition: background .2s;
+    }}
+    .video-play::after {{
+      content: ""; position: absolute; left: 30px; top: 22px;
+      border-style: solid; border-width: 16px 0 16px 26px; border-color: transparent transparent transparent #fff;
+    }}
+    .video-frame:hover .video-play {{ background: rgba(167, 139, 250, .85); }}
+
+    .mcp {{ padding: 0 0 64px; }}
+    .mcp-panel {{
+      background: var(--surface); border: 1px solid var(--line); border-radius: 22px;
+      padding: 34px 30px; max-width: 760px; margin: 0 auto;
+    }}
+    .mcp-panel:hover {{ border-color: rgba(167, 139, 250, .45); }}
+    .mcp-panel .ico {{
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 44px; height: 44px; border-radius: 12px; font-size: 1.3rem;
+      background: rgba(167, 139, 250, .12); margin-bottom: 14px;
+    }}
+    .mcp-panel h2 {{ font-size: clamp(1.2rem, 3vw, 1.5rem); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 10px; }}
+    .mcp-panel p {{ color: var(--dim); font-size: .95rem; margin-bottom: 18px; }}
+    .mcp-panel .steps {{ margin: 0 0 18px; padding-left: 22px; font-size: .93rem; display: grid; gap: 8px; }}
+    .mcp-panel .steps li::marker {{ color: var(--lavender); font-weight: 700; }}
+    .mcp-panel .install {{
+      background: var(--bg); border: 1px solid var(--line); border-radius: 12px;
+      padding: 14px 16px; margin-bottom: 4px;
+      font: 12.5px/1.7 ui-monospace, SFMono-Regular, Menlo, monospace;
+      color: var(--mint); overflow-x: auto; white-space: pre;
+    }}
   </style>
 </head>
 <body>
@@ -391,6 +533,11 @@ def build(out):
       <div><span class="trust">{spans(TRUST)}</span></div>
     </section>
 
+    <section class="video">
+      <h2 class="video-title">{spans(VIDEO_TITLE)}</h2>
+      <a class="video-frame" data-video href="https://youtu.be/{VIDEO_ID["en"]}" target="_blank" rel="noopener" aria-label="Loop preview on YouTube"><img src="https://i.ytimg.com/vi/{VIDEO_ID["en"]}/maxresdefault.jpg" alt="Loop preview" loading="lazy"><span class="video-play"></span></a>
+    </section>
+
     <section class="shots">
       <div class="shots-row">
         {shots_html}
@@ -400,6 +547,19 @@ def build(out):
     <section class="features">
       <div class="grid">
         {features_html}
+      </div>
+    </section>
+
+    <section class="mcp">
+      <div class="mcp-panel">
+        <span class="ico">🖥️</span>
+        <h2>{spans(MCP_TITLE)}</h2>
+        <p>{spans(MCP_BODY)}</p>
+        <ol class="steps">
+          {mcp_steps_html}
+        </ol>
+        <pre class="install"><code>{html.escape(PLUGIN_INSTALL)}</code></pre>
+        <a class="guide-link" href="{PLUGIN_URL}" target="_blank" rel="noopener">🔗 {spans(MCP_GUIDE_LABEL)}</a>
       </div>
     </section>
 
@@ -424,6 +584,7 @@ def build(out):
       var TITLES = {titles_json};
       var BADGES = {badges_json};
       var ALTS = {alts_json};
+      var VIDEO = {video_json};
 
       function detect() {{
         var n = (navigator.language || "en").toLowerCase();
@@ -447,6 +608,10 @@ def build(out):
         }});
         document.querySelectorAll("[data-shot]").forEach(function (img) {{
           img.src = "/assets/shots/" + l + "/" + img.dataset.shot + ".webp";
+        }});
+        document.querySelectorAll("[data-video]").forEach(function (a) {{
+          a.href = "https://youtu.be/" + VIDEO[l];
+          a.querySelector("img").src = "https://i.ytimg.com/vi/" + VIDEO[l] + "/maxresdefault.jpg";
         }});
         try {{ localStorage.setItem("loop-lang", l); }} catch (e) {{}}
       }}
