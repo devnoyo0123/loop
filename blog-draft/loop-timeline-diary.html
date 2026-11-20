@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <!-- ============================================================
+    블로그 포스트 초안 — devnoyo0123.github.io 용
+    배포 방법:
+      1. 이 파일을 devnoyo0123.github.io 저장소의 blog/ 폴더에 복사
+         (예: blog/loop-timeline-diary.html)
+      2. 직접 찍은 스크린샷은 assets/blog/ 폴더에 업로드
+         (아래 <!-- 이미지 --> 주석 위치에 넣으면 자리를 기다립니다)
+      3. 발행 후 Google Search Console에서 URL 검사 → 색인 생성 요청
+  ============================================================= -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- SEO: 제목 40자 내외, 핵심 키워드 앞쪽 배치 -->
+  <title>타임라인 일기 앱 Loop — 과거의 나와 다시 이어지는 하루 기록</title>
+  <meta name="description" content="하루를 순서대로 기록하고, 원하는 순간에 기록이 다시 찾아오는 일기 앱 Loop. 알림·전체화면 알람 리마인더, 망각곡선 복습, 사진·날씨 자동 기록, 기기 이전 백업까지. 구글 플레이에서 무료로 만나보세요.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://devnoyo0123.github.io/blog/loop-timeline-diary.html">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+
+  <!-- 소셜 공유(OG / Twitter) — og:image는 1200x630 권장 -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://devnoyo0123.github.io/blog/loop-timeline-diary.html">
+  <meta property="og:title" content="과거의 내가 다시 찾아오는 타임라인 일기 앱, Loop(루프)">
+  <meta property="og:description" content="하루를 순서대로 기록하고, 원하는 순간에 기록이 다시 찾아옵니다. 알람 리마인더·망각곡선 복습·기기 이전까지 지원하는 로컬 퍼스트 일기 앱.">
+  <!-- 이미지 추가: assets/blog/loop-og.webp (1200x630) 를 만들어 업로드한 뒤 주석 해제
+  <meta property="og:image" content="https://devnoyo0123.github.io/assets/blog/loop-og.webp">
+  -->
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- 구조화된 데이터: 구글 리치 결과용 (BlogPosting + VideoObject + FAQPage) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BlogPosting",
+        "headline": "타임라인 일기 앱 Loop — 과거의 나와 다시 이어지는 하루 기록",
+        "description": "하루를 순서대로 기록하고, 원하는 순간에 기록이 다시 찾아오는 일기 앱 Loop 소개",
+        "inLanguage": "ko",
+        "datePublished": "2026-11-19",
+        "dateModified": "2026-11-19",
+        "author": { "@type": "Organization", "name": "Loop" },
+        "publisher": { "@type": "Organization", "name": "Loop" },
+        "mainEntityOfPage": "https://devnoyo0123.github.io/blog/loop-timeline-diary.html"
+      },
+      {
+        "@type": "VideoObject",
+        "name": "Loop 앱 소개 영상",
+        "description": "Loop — 하루 기록이 다시 찾아오는 타임라인 일기 앱 데모",
+        "thumbnailUrl": "https://i.ytimg.com/vi/KwF9WC3M2cY/maxresdefault.jpg",
+        "uploadDate": "2026-11-01",
+        "embedUrl": "https://www.youtube.com/embed/KwF9WC3M2cY"
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Loop는 무료인가요?",
+            "acceptedAnswer": { "@type": "Answer", "text": "구글 플레이에서 무료로 설치해 사용할 수 있습니다." }
+          },
+          {
+            "@type": "Question",
+            "name": "기록은 어디에 저장되나요?",
+            "acceptedAnswer": { "@type": "Answer", "text": "모든 기록은 기기 안에만 저장됩니다(로컬 퍼스트). 날씨 정보를 위한 좌표 전송 외에 서버로 기록이 전송되지 않으며, .looplog 파일로 내보내 백업할 수 있습니다." }
+          },
+          {
+            "@type": "Question",
+            "name": "핸드폰을 바꾸면 기록이 사라지나요?",
+            "acceptedAnswer": { "@type": "Answer", "text": "안드로이드 자동 백업과 기기 간 이전을 지원하고, .looplog 파일 내보내기·가져오기로도 옮길 수 있습니다." }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg: #0B0D12; --surface: #12151D; --surface-hi: #1A1E2A;
+      --text: #E8EAF2; --dim: #8B90A0; --lavender: #A78BFA; --mint: #7DE2C3; --line: #262B3A;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: var(--bg); color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Pretendard", "Noto Sans KR", Roboto, sans-serif;
+      line-height: 1.75; overflow-x: hidden;
+    }
+    .wrap { max-width: 760px; margin: 0 auto; padding: 0 24px; }
+    nav { position: sticky; top: 0; z-index: 10; backdrop-filter: blur(12px); background: rgba(11,13,18,.78); border-bottom: 1px solid var(--line); }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 60px; }
+    .brand { display: flex; align-items: center; gap: 10px; color: var(--text); text-decoration: none; font-weight: 700; }
+    .brand img { width: 28px; height: 28px; border-radius: 8px; }
+    .nav-inner a.home { color: var(--dim); text-decoration: none; font-size: .9rem; }
+    .nav-inner a.home:hover { color: var(--lavender); }
+
+    header.post { padding: 48px 0 8px; }
+    .meta { color: var(--dim); font-size: .88rem; margin-bottom: 12px; }
+    h1 {
+      font-size: clamp(1.6rem, 4vw, 2.3rem); line-height: 1.3; font-weight: 800; letter-spacing: -0.02em;
+      background: linear-gradient(100deg, var(--lavender), var(--mint));
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .lead { color: var(--dim); font-size: 1.06rem; margin: 18px 0 0; }
+
+    main { padding: 24px 0 56px; }
+    main img.shot { width: 100%; border-radius: 16px; border: 1px solid var(--line); display: block; margin: 18px auto; }
+    h2 { font-size: 1.4rem; font-weight: 700; margin: 48px 0 14px; letter-spacing: -0.01em; }
+    h3 { font-size: 1.1rem; font-weight: 700; margin: 28px 0 10px; }
+    p { margin: 12px 0; color: #C6CAD6; }
+    strong { color: var(--text); }
+    em.k { font-style: normal; color: var(--mint); }
+    ul, ol { margin: 12px 0 12px 22px; color: #C6CAD6; }
+    li { margin: 6px 0; }
+    a { color: var(--lavender); }
+    blockquote { border-left: 3px solid var(--lavender); padding: 4px 16px; margin: 18px 0; color: var(--dim); }
+
+    /* 유튜브: 클릭 전 썸네일만 로드(성능·SEO에 유리) */
+    .yt { position: relative; width: 100%; aspect-ratio: 16/9; border-radius: 16px; overflow: hidden; border: 1px solid var(--line); margin: 18px 0; }
+    .yt img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .yt button.play {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      background: transparent; border: 0; cursor: pointer; display: flex; align-items: center; justify-content: center;
+    }
+    .yt .play::after {
+      content: ""; width: 68px; height: 48px; border-radius: 14px;
+      background: rgba(212, 53, 53, .92) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M8 5v14l11-7z'/%3E%3C/svg%3E") center/32px no-repeat;
+    }
+
+    /* 이미지 추가 자리 */
+    .img-slot {
+      border: 2px dashed var(--line); border-radius: 16px; padding: 36px 20px;
+      text-align: center; color: var(--dim); font-size: .92rem; margin: 18px 0;
+    }
+    .img-slot code { color: var(--lavender); }
+
+    .cta { text-align: center; margin: 44px 0 8px; }
+    .cta img { width: 220px; border-radius: 10px; }
+    .cta .links { margin-top: 14px; font-size: .95rem; }
+
+    table.faq { width: 100%; border-collapse: collapse; margin: 14px 0; }
+    table.faq td { border-top: 1px solid var(--line); padding: 12px 8px; vertical-align: top; color: #C6CAD6; }
+    table.faq td:first-child { width: 38%; color: var(--text); font-weight: 600; }
+
+    footer { border-top: 1px solid var(--line); padding: 28px 0 40px; color: var(--dim); font-size: .88rem; }
+    footer a { color: var(--dim); margin-right: 16px; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap nav-inner">
+    <a class="brand" href="/"><img src="/assets/favicon-32.png" alt="Loop 앱 아이콘">Loop</a>
+    <a class="home" href="/">← 홈으로</a>
+  </div>
+</nav>
+
+<header class="post wrap">
+  <p class="meta">2026년 11월 19일 · Loop 팀 · 5분 읽기</p>
+  <h1>과거의 내가 다시 찾아오는 타임라인 일기 앱, Loop(루프)</h1>
+  <p class="lead">하루를 순서대로 기록하고, 원하는 순간에 그 기록이 <strong>나를 다시 찾아옵니다</strong>. 알림이나 전체화면 알람으로요. 폴더 정리도, 서버 업로드도 없는 — 기록이 온전히 나만의 것으로 남는 일기 앱을 소개합니다.</p>
+</header>
+
+<main class="wrap">
+
+  <p>
+    "작년 오늘 나는 뭘 했지?" 하고 물었을 때, 답이 3초 안에 나오나요?
+    <a href="https://devnoyo0123.github.io/">Loop</a>는 하루를 시간순으로 적어두고,
+    내가 정해둔 순간에 과거의 기록이 다시 도착하는 <em class="k">타임라인 일기 앱</em>입니다.
+    다이어리, 메모, 루틴 관리, 리마인더를 한 앱에서 처리하고 싶다면 읽어보세요.
+  </p>
+
+  <h2 id="video">30초 영상으로 보는 Loop</h2>
+  <p>아래 데모 영상으로 핵심 흐름을 먼저 확인할 수 있습니다. <a href="https://www.youtube.com/watch?v=KwF9WC3M2cY" rel="noopener">유튜브에서 바로 보기 ↗</a></p>
+
+  <!-- 유튜브 임베드: 썸네일 클릭 시 재생 (페이지 로드 속도 지킴) -->
+  <div class="yt" data-yt="KwF9WC3M2cY">
+    <img src="https://i.ytimg.com/vi/KwF9WC3M2cY/maxresdefault.jpg" alt="Loop 타임라인 일기 앱 데모 영상 썸네일" loading="lazy">
+    <button class="play" aria-label="Loop 데모 영상 재생"></button>
+  </div>
+  <noscript><p><a href="https://www.youtube.com/watch?v=KwF9WC3M2cY">Loop 데모 영상 보러 가기</a></p></noscript>
+
+  <h2 id="what">Loop는 어떤 앱인가?</h2>
+  <p>
+    Loop의 핵심은 딱 하나입니다 — <strong>기록이 다시 돌아온다</strong>.
+    지금 로그를 남기고 '루프'를 걸어두면, 정해둔 순간(알림 또는 전체화면 알람)에
+    원래 기록이 있던 자리 바로 아래에 빈 이어쓰기가 도착합니다. 거기에 답하면 기록이 사슬처럼 이어집니다.
+  </p>
+  <p>모든 데이터는 기기 안에만 저장되는 <strong>로컬 퍼스트</strong> 구조라, 기록이 서버로 올라가지 않습니다.</p>
+
+  <!-- 이미지: 타임라인 화면 — 직접 찍은 스크린샷으로 교체하려면 assets/blog/에 넣고 src만 바꾸세요.
+       기존 홈페이지용 스크린샷(/assets/shots/ko/)을 임시로 사용 중입니다 -->
+  <img class="shot" src="/assets/shots/ko/00_timeline.webp" alt="Loop 타임라인 화면 — 하루 기록이 시간순으로 쌓이는 모습" loading="lazy" width="720" height="1560">
+
+  <h2 id="timeline">폴더 없는 타임라인</h2>
+  <p>
+    카테고리, 폴더, 탭이 없습니다. 오직 시간순 스트림 하나.
+    과거 기록에 이어쓰기(포크)를 하면 그 답도 <strong>제자리</strong> — 원래 기록이 있던 시간축에 자연스럽게 자라납니다.
+    "정리하려다 기록을 포기했던" 분들에게 맞는 설계입니다.
+  </p>
+
+  <h2 id="loop">루프: 알림 또는 알람으로 돌아오는 기록</h2>
+  <ul>
+    <li><strong>알림 or 전체화면 알람</strong> — 루프마다 부드러운 알림과, 꺼져도 계속 울리는 알람 중 고를 수 있어요</li>
+    <li><strong>반복 규칙</strong> — 매 N분·N시간, 매일, 평일 반복. 한국 공휴일은 자동으로 건너뜁니다</li>
+    <li><strong>놓친 알림 복습</strong> — 폰이 꺼져 있던 사이의 발화도 원래 시간대 순서대로 되살아납니다</li>
+    <li><strong>망각곡선 복습</strong> — 루프가 돌아올 때마다 간격이 늘어납니다. 10분 → 1시간 → 1일 → 1주 → 1달</li>
+  </ul>
+
+  <!-- 이미지 추가 자리: 알람 체험 화면을 직접 캡처해 넣으세요
+  <div class="img-slot">📷 여기에 이미지 추가 — <code>assets/blog/loop-alarm.webp</code><br>전체화면 알람이 울리는 장면</div>
+  -->
+
+  <h2 id="write">기록 자체가 가벼운 일기</h2>
+  <p>
+    글만 쓸 수도 있고, 사진을 붙이거나 장소·날씨를 자동으로 남길 수도 있습니다.
+    좌표는 기기에만 남고 날씨 조회에만 쓰입니다. 한글 부분 검색이 지원돼("어제 적은 카페" 같은 조각 검색)
+    기록이 쌓여도 찾는 데 1초가 걸리지 않습니다.
+  </p>
+
+  <img class="shot" src="/assets/shots/ko/02_loop.webp" alt="Loop 루프 설정 화면 — 반복 규칙과 알림·알람 선택" loading="lazy" width="720" height="1560">
+
+  <h2 id="stats">기록 흐름 통계: 그때의 나를 만나는 시간</h2>
+  <p>
+    현재·최고 연속 기록일, 15주 히트맵, "생각이 다시 찾아온 횟수", 가장 긴 사슬.
+    그리고 매일 아침 9시, 일주일·한 달·일 년 전 오늘의 기록이 <strong>"그때의 너"</strong>로 배달됩니다(설정에서 켜고 끌 수 있어요).
+  </p>
+
+  <!-- 이미지 추가 자리: 통계 화면 캡처
+  <div class="img-slot">📷 여기에 이미지 추가 — <code>assets/blog/loop-stats.webp</code><br>15주 히트맵·스트릭 화면</div>
+  -->
+
+  <h2 id="share">공유와 백업: 폰을 바꿔도 사라지지 않습니다</h2>
+  <p>
+    사슬 전체(원본 + 이어쓰기)를 근처 기기에 바로 넘기거나, <code>.looplog</code> 파일 하나로 내보낼 수 있습니다.
+    사진·위치를 빼고 내보내는 옵션도 있어요. 안드로이드 자동 백업·기기 간 이전을 지원하고,
+    병합 가져오기가 중복 없이 동작하기 때문에 <strong>핸드폰을 바꿔도 기록이 그대로</strong> 남습니다.
+  </p>
+
+  <img class="shot" src="/assets/shots/ko/07_share.webp" alt="Loop 공유 화면 — 기록 사슬을 파일 하나로 내보내는 모습" loading="lazy" width="720" height="1560">
+
+  <h2 id="faq">자주 묻는 질문</h2>
+  <table class="faq">
+    <tr><td>Loop는 무료인가요?</td><td>네, 구글 플레이에서 무료로 설치해 사용할 수 있습니다.</td></tr>
+    <tr><td>기록이 서버에 올라가나요?</td><td>아니요. 모든 기록은 기기 안에만 저장됩니다. 날씨 자동 기록을 위한 좌표 조회 외에는 네트워크로 기록이 나가지 않습니다.</td></tr>
+    <tr><td>아이폰은 언제 지원되나요?</td><td>현재는 안드로이드 버전입니다. 새 소식은 <a href="https://devnoyo0123.github.io/">공식 홈페이지</a>에서 안내합니다.</td></tr>
+    <tr><td>한국어 이외 언어는?</td><td>한국어·영어·일본어·중국어·스페인어·베트남어·이탈리아어·힌디 8개 언어를 지원합니다.</td></tr>
+  </table>
+
+  <h2 id="download">지금 시작하기</h2>
+  <p>
+    빈 타임라인에 10분 루프, 매일 밤의 한 줄, 주간 회고 같은 <strong>스타터 루프</strong>가 준비되어 있어
+    첫 실행부터 기록 사이클이 시작됩니다.
+  </p>
+
+  <div class="cta">
+    <a href="https://play.google.com/store/apps/details?id=com.devnoyo0123.loop" rel="noopener">
+      <img src="/assets/badge-ko.png" alt="Google Play에서 Loop 다운로드" loading="lazy">
+    </a>
+    <div class="links">
+      <a href="https://devnoyo0123.github.io/">공식 홈페이지</a> ·
+      <a href="https://devnoyo0123.github.io/loop-guide/">그림 사용법 가이드</a> ·
+      <a href="https://www.youtube.com/watch?v=KwF9WC3M2cY">유튜브 데모</a>
+    </div>
+  </div>
+
+  <blockquote>
+    오늘의 한 줄이 한 달 뒤의 나에게 알람으로 돌아옵니다.
+    <strong>과거의 나와 대화하는 일기, Loop.</strong>
+  </blockquote>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <a href="/">Loop</a><a href="https://devnoyo0123.github.io/loop-guide/">가이드</a><a href="https://devnoyo0123.github.io/loop-privacy/">개인정보처리방침</a>
+    <div style="margin-top:10px">© 2026 Loop</div>
+  </div>
+</footer>
+
+<script>
+  // 유튜브 파사드: 썸네일 클릭 시에만 iframe 로드 (초기 로드 속도 유지)
+  document.querySelectorAll(".yt").forEach(function (el) {
+    el.querySelector(".play").addEventListener("click", function () {
+      var id = el.dataset.yt;
+      el.innerHTML = '<iframe width="100%" height="100%" src="https://www.youtube.com/embed/' + id +
+        '?autoplay=1" title="Loop 데모 영상" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+    });
+  });
+</script>
+</body>
+</html>

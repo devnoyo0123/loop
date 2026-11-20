@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="alarm_label">↩ Bucle activado</string>
+    <string name="alarm_snooze">Otra vez en 10 min</string>
+    <string name="alarm_confirm">Aceptar</string>
+    <string name="alarm_no_content">(sin contenido)</string>
+    <!-- PC 연결 세션 유지 알림 (PcLinkService, ADR-003) -->
+    <string name="pclink_channel_name">Conexión con PC</string>
+    <string name="pclink_connected_title">Conectado a tu PC</string>
+    <string name="pclink_connected_text">Claude puede consultar tus registros. Se mantiene 1 hora tras el último uso.</string>
+    <string name="pclink_disconnect">Desconectar</string>
+</resources>

@@ -19,12 +19,15 @@ Loop — Daily Timeline Log
 ### Short description (80자)
 
 ```
-Log your day in order. Continue a past thought, and loops bring it back to you.
+Log your day in order. Loops bring thoughts back — even as full-screen alarms.
 ```
 
 ### Full description
 
 ```
+🌐 https://devnoyo0123.github.io/
+📖 How to use Loop (with pictures): https://devnoyo0123.github.io/loop-guide/
+
 We believe the order your day flows in is the answer.
 
 Loop has no titles, no folders, no categories. Write what's on your mind right
@@ -35,9 +38,16 @@ back in exact order.
 When yesterday's thought leads somewhere new today, continue writing on that
 log. The lineage stays attached, so the flow never breaks.
 
-▌ Loop reminders
-Set a loop on any log. When the time comes, it comes back to you — with sound,
-until you confirm it. One thought that won't slip away.
+▌ Alarm-grade loops
+Set a loop as a true alarm: full screen, rings through Do Not Disturb, and it
+keeps ringing until you confirm — even while you're using other apps.
+
+▌ Upcoming · 7 days
+Every loop coming back this week, at a glance.
+
+▌ Your flow
+Streaks, chains, a 15-week heatmap — and your past self: a week, a month, a
+year ago today, resurfacing as you scroll.
 
 ▌ Repeats
 "Every 10 minutes", "Every night at 9" — a repeat spawns a fork each time it
@@ -59,6 +69,9 @@ Everything lives on your phone only. Nothing is sent to a server.
 Export your entire log as a .looplog file from Settings for backup.
 (Regular exports are recommended for records you care about.)
 
+Available in 8 languages: English, 中文, Español, हिन्दी, 日本語, Tiếng Việt,
+Italiano, 한국어.
+
 Write down the thought you'd otherwise let drift away.
 ```
 
@@ -76,12 +89,15 @@ Loop : 흘러간 하루의 기록
 ### 짧은 설명 (80자)
 
 ```
-순서대로 쌓는 하루 기록. 흘러간 생각을 이어쓰기로 잇고, 루프 알림으로 다시 돌아오세요.
+순서대로 쌓는 하루 기록. 루프는 전체 화면 알람처럼 — 확인할 때까지 다시 돌아옵니다.
 ```
 
 ### 전체 설명
 
 ```
+🌐 https://devnoyo0123.github.io/
+📖 사용법(그림 안내): https://devnoyo0123.github.io/loop-guide/
+
 기록이 쌓이는 순서, 그대로가 답이라고 믿습니다.
 
 Loop는 제목·폴더·분류 없이, 지금 떠오른 생각을 지금 시각에 그냥 적습니다.
@@ -91,9 +107,16 @@ Loop는 제목·폴더·분류 없이, 지금 떠오른 생각을 지금 시각�
 어제 쓴 생각에 오늘 다시 생각이 이어지면, 그 로그에 이어쓰기를 하세요.
 어디서 이어진 기록인지 계보가 남아 흐름이 끊기지 않습니다.
 
-▌ 루프 알림
-기록에 알림을 걸어두면, 정해진 시각에 소리와 함께 다시 찾아옵니다.
-확인을 누를 때까지 잊히지 않은 생각 하나.
+▌ 알람급 루프
+루프를 진짜 알람처럼 — 전체 화면, 방해 금지를 뚫고, 확인할 때까지 울립니다.
+다른 앱을 쓰고 있어도 화면을 덮고 알려줍니다.
+
+▌ 다가오는 루프 · 7일
+이번 주에 돌아올 루프를 한 화면에서 확인합니다.
+
+▌ 기록 흐름
+연속 기록·사슬·15주 히트맵, 그리고 그때의 나 — 1주·1개월·1년 전 오늘의
+기록이 스크롤에 따라 다시 나타납니다.
 
 ▌ 반복
 "10분마다", "매일 밤 9시"처럼 반복을 걸면 발화마다 이어쓰기가 자동 생성됩니다.
@@ -136,6 +159,9 @@ Loop — 時間順の一日ログ
 ### Full description
 
 ```
+🌐 https://devnoyo0123.github.io/
+📖 使い方（画像つき）: https://devnoyo0123.github.io/loop-guide/
+
 一日が流れていく順番のままが、答えだと信じています。
 
 Loop にタイトルもフォルダも分類もありません。いま浮かんだ思考を、いまの時刻にただ書く。
@@ -145,10 +171,16 @@ Loop にタイトルもフォルダも分類もありません。いま浮かん
 昨日の思考に今日また考えがつながったら、そのログに続きを書こう。
 どこから続いたかは系譜が残るので、流れが途切れません。
 
-▌ ループリマインダー
-ログにリマインダーをかけると、決まった時刻に音と一緒にまた会いに来ます。
-確認するまで、忘れた考えにはさせない。
+▌ アラーム級ループ
+ループを本物のアラームのように — 全画面、集中モードを貫通し、確認するまで鳴り続けます。
+他のアプリ使用中でも画面を覆って知らせます。
 
+▌ 近づくループ · 7日間
+今週戻ってくるループをひと画面で確認。
+
+▌ 記録フロー
+連続記録・チェーン・15週間ヒートマップ、そして過ぎた日の自分 —
+1週・1ヶ月・1年前の今日の記録がスクロールとともに現れます。
 ▌ 繰り返し
 「10分ごと」「毎晩9時」と繰り返しをかけると、発火のたびに続き書きが自動生成されます。
 何回戻ってきたかはカードですぐわかります。
@@ -190,6 +222,9 @@ Loop — 按顺序记录每一天
 ### Full description
 
 ```
+🌐 https://devnoyo0123.github.io/
+📖 使用指南（附图）：https://devnoyo0123.github.io/loop-guide/
+
 我们相信，一天原本流过的顺序，就是答案。
 
 Loop 没有标题、文件夹和分类。此刻浮现的想法，就写在此刻。
@@ -199,10 +234,16 @@ Loop 没有标题、文件夹和分类。此刻浮现的想法，就写在此刻
 昨天的想法今天有了新的延续，就在那条记录上续写。
 续写自哪里都有脉络可循，思路不会断线。
 
-▌ 循环提醒
-给记录设一个循环，到了设定的时间它会带着声音回来。
-在你按下"知道了"之前，这个想法不会被忘记。
+▌ 闹钟级循环
+把循环设成真正的闹钟 — 全屏显示、穿透勿扰模式，确认前一直响铃。
+即使正在使用其他应用，也会覆盖屏幕提醒你。
 
+▌ 即将到来的循环 · 7天
+一周内将要回来的循环，一屏尽览。
+
+▌ 记录流
+连续天数·链·15周热力图，还有那时的你 —— 1周、1个月、1年前的今天，
+随着滚动重新浮现。
 ▌ 重复
 设成"每10分钟""每晚9点"，每次触发都会自动生成续写。
 卡片上能直接看到已经转回来多少次。
@@ -244,6 +285,9 @@ Registra tu día en orden. Continúa un pensamiento y los bucles te lo devuelven
 ### Full description
 
 ```
+🌐 https://devnoyo0123.github.io/
+📖 Cómo usar Loop (con imágenes): https://devnoyo0123.github.io/loop-guide/
+
 Creemos que el orden en el que fluye tu día es la respuesta.
 
 Loop no tiene títulos, carpetas ni categorías. Escribes lo que te viene a la
@@ -254,10 +298,16 @@ día vuelve fluyendo en su orden exacto.
 Cuando el pensamiento de ayer sigue hoy, continúa ese registro.
 El linaje queda marcado: el hilo nunca se rompe.
 
-▌ Avisos de bucle
-Ponle un bucle a un registro y volverá a ti a la hora fijada, con sonido,
-hasta que lo confirmes. Un pensamiento que no se escapa.
+▌ Bucles con nivel de alarma
+Convierte un bucle en una alarma real: pantalla completa, suena incluso en No
+molestar y sigue sonando hasta que confirmes — incluso usando otra app.
 
+▌ Próximos bucles · 7 días
+Los bucles que vuelven esta semana, de un vistazo.
+
+▌ Tu flujo
+Rachas, cadenas, un mapa de calor de 15 semanas — y tu yo del pasado: hoy hace
+una semana, un mes y un año, reaparecen al desplazarte.
 ▌ Repeticiones
 "Cada 10 minutos", "cada noche a las 9" — cada disparo crea un fork
 automático, y la tarjeta muestra cuántas veces ha vuelto.
@@ -294,12 +344,15 @@ Loop — Nhật ký theo trình tự
 ### Short description (80자)
 
 ```
-Ghi lại ngày của bạn theo trình tự. Viết tiếp suy nghĩ cũ, vòng lặp đưa bạn quay lại.
+Ghi lại ngày theo trình tự. Viết tiếp suy nghĩ cũ, vòng lặp đưa bạn quay lại.
 ```
 
 ### Full description
 
 ```
+🌐 https://devnoyo0123.github.io/
+📖 Cách dùng Loop (có hình): https://devnoyo0123.github.io/loop-guide/
+
 Chúng tôi tin rằng trật tự mà một ngày trôi qua chính là câu trả lời.
 
 Loop không có tiêu đề, thư mục hay phân loại. Suy nghĩ vừa xuất hiện, cứ ghi
@@ -310,10 +363,16 @@ trình tự thời gian.
 Khi suy nghĩ hôm qua nối tiếp sang hôm nay, hãy viết tiếp trên ghi chép đó.
 Mạch nguồn được lưu lại nên dòng suy nghĩ không bao giờ đứt.
 
-▌ Nhắc vòng lặp
-Đặt một vòng lặp lên ghi chép, đến giờ nó sẽ quay lại cùng âm báo,
-cho đến khi bạn xác nhận. Một suy nghĩ không bị bỏ quên.
+▌ Vòng lặp cấp báo thức
+Biến vòng lặp thành báo thức thật: toàn màn hình, kêu xuyên qua cả Không làm phiền,
+và kêu đến khi bạn xác nhận — kể cả khi đang dùng ứng dụng khác.
 
+▌ Vòng lặp sắp tới · 7 ngày
+Các vòng lặp quay lại tuần này, nhìn một cái là thấy.
+
+▌ Dòng chảy ghi chép
+Chuỗi ngày liên tục, chuỗi suy nghĩ, bản đồ nhiệt 15 tuần — và con người bạn
+của quá khứ: hôm nay của 1 tuần, 1 tháng, 1 năm trước hiện lại khi cuộn.
 ▌ Lặp lại
 Đặt "mỗi 10 phút", "mỗi đêm 9 giờ" — mỗi lần kích hoạt tự sinh một bản viết
 tiếp, thẻ ghi chép cho biết đã quay lại bao nhiêu lần.
@@ -372,3 +431,157 @@ Suy nghĩ vừa xuất hiện — đừng để nó trôi đi.
 
 ※ 스크린샷 언어: 폰 언어를 영어로 두고 한 세트, 한국어로 한 세트면 언어별 목록에
 각각 넣을 수 있음. 최소한은 한국어 세트 1개(기본 목록 공용)로 시작 가능.
+
+---
+
+## 7. 이탈리아어 (it-IT)
+
+### Title
+
+```
+Loop — Il giorno in ordine
+```
+
+### Short description (80자)
+
+```
+Registra il tuo giorno in ordine. I loop riportano i pensieri persi.
+```
+
+### Full description
+
+```
+🌐 https://devnoyo0123.github.io/
+📖 Come usare Loop (con immagini): https://devnoyo0123.github.io/loop-guide/
+
+Crediamo che l'ordine in cui scorre la giornata sia la risposta.
+
+Loop non ha titoli, cartelle o categorie. Scrivi il pensiero di adesso —
+resta in questo momento. Rileggendolo, l'intera giornata torna nel suo
+ordine esatto.
+
+▌ Continua la voce (fork)
+Quando il pensiero di ieri continua oggi, continua quella voce.
+La discendenza resta: il filo non si spezza.
+
+▌ Loop di livello allarme
+Trasforma un loop in un vero allarme: schermo intero, suona anche in Non disturbare
+e continua finché non confermi — anche mentre usi un'altra app.
+
+▌ Loop in arrivo · 7 giorni
+I loop che tornano questa settimana, a colpo d'occhio.
+
+▌ Il tuo flusso
+Serie, catene, una heatmap di 15 settimane — e il te del passato: oggi una
+settimana, un mese e un anno fa, riemergono scorrendo.
+▌ Ripetizioni
+"Ogni 10 minuti", "ogni sera alle 21" — ogni attivazione crea
+automaticamente una continuazione, con il conteggio dei ritorni.
+
+▌ Ricerca rapida
+Ricerca full-text di contenuti e luoghi, immediata. Con ordinamento
+per rilevanza o più recenti.
+
+▌ Vai alla data
+Apri qualsiasi giorno passato direttamente dal calendario.
+
+▌ Foto, luogo e meteo — automatici
+Allegando una foto, luogo e meteo del momento vengono registrati in
+silenzio. Le coordinate non vengono mai mostrate.
+
+▌ I tuoi dati restano tuoi
+Tutto vive solo nel tuo telefono. Niente viene inviato a server.
+Esporta l'intero diario come file .looplog dalle Impostazioni.
+(Consigliato esportare regolarmente le voci importanti.)
+
+Annota il pensiero che altrimenti ti sfuggirebbe.
+```
+
+---
+
+## 8. 힌디어 (hi-IN) — 인도
+
+### Title
+
+```
+Loop — हर दिन, अपने क्रम में
+```
+
+### Short description (80자)
+
+```
+अपने दिन को क्रम में लिखें. पुराने विचारों को जोड़ें, लूप उन्हें वापस लाएँ.
+```
+
+### Full description
+
+```
+🌐 https://devnoyo0123.github.io/
+📖 Loop कैसे इस्तेमाल करें (तस्वीरों के साथ): https://devnoyo0123.github.io/loop-guide/
+
+हम मानते हैं कि दिन के बहने का क्रम ही जवाब है.
+
+Loop में कोई टाइटल, फ़ोल्डर या कैटेगरी नहीं है. जो ख़याल अभी आ रहा है,
+अभी लिखिए — वहीं दर्ज होगा. बाद में पढ़िए, पूरा दिन उसी क्रम में लौट आएगा.
+
+▌ जारी रखें (fork)
+कल का ख़याल आज आगे बढ़े तो उसी एंट्री पर लिखते रहिए.
+श्रृंखला सहेजी रहती है — धागा कभी नहीं टूटता.
+
+▌ अलार्म-ग्रेड लूप
+लूप को सच्चे अलार्म जैसा बनाएं: फ़ुल स्क्रीन, दो ना दो में (DND) भी बजता है,
+और पुष्टि तक बजता रहता है — दूसरे ऐप इस्तेमाल करते समय भी।
+
+▌ आने वाले लूप · 7 दिन
+इस हफ़्ते वापस आने वाले लूप, एक नज़र में।
+
+▌ आपका फ़्लो
+स्ट्रीक, चेन, 15-सप्ताह हीटमैप — और आपका पुराना रूप: आज से एक हफ़्ता, एक महीने
+और एक साल पहले, स्क्रॉल करने पर वापस आता है।
+▌ रिपीट
+"हर 10 मिनट", "रोज़ रात 9 बजे" — हर बार अपने आप जारी एंट्री बनेगी,
+कितनी बार लौटा यह कार्ड दिखाएगा.
+
+▌ तेज़ खोज
+टेक्स्ट और जगह की फुल-टेक्स्ट खोज, तुरंत. प्रासंगिकता/नवीनतम क्रम.
+
+▌ तारीख पर जाएँ
+कैलेंडर से पिछला कोई भी दिन सीधे खोलें.
+
+▌ फ़ोटो, जगह और मौसम — अपने आप
+फ़ोटो जोड़ने पर उस पल की जगह और मौसम भी चुपचाप दर्ज होगा.
+निर्देशांक कभी स्क्रीन पर नहीं दिखते.
+
+▌ आपका डेटा आपके पास
+सब कुछ सिर्फ़ आपके फ़ोन में रहता है. किसी सर्वर पर नहीं जाता.
+सेटिंग्स से पूरा रिकॉर्ड .looplog फ़ाइल में एक्सपोर्ट करें.
+(ज़रूरी रिकॉर्ड का नियमित बैकअप सुझावित.)
+
+वो ख़याल लिखिए जो वरना निकल जाता.
+```
+
+---
+
+## 사용법 페이지 링크 — 전체 설명 맨 위에 배치 (2026-11-02 정책 변경)
+
+공개 페이지: https://devnoyo0123.github.io/loop-guide/ (생성: `tool/build_guide_page.py`, 앱의 사용법 화면과 같은 글·그림)
+
+> **2026-11-02 정책:** 링크 줄은 전체 설명 **맨 위**(첫 줄)에 둔다 — 스토어에서
+> 링크로 자동 연결되고 첫 화면에 바로 보여야 하기 때문 (사용자 요청). 아래 8개 줄은
+> 이미 각 언어 전체 설명 첫 줄에 반영돼 있다.
+>
+> **언어 나열 순서:** 스토어 설명·가이드 페이지 공통으로 **화자 수(인구) 순** —
+> English, 中文, Español, हिन्दी, 日本語, Tiếng Việt, Italiano, 한국어.
+
+| 언어 | 전체 설명 첫 줄 |
+|---|---|
+| en-US | 📖 How to use Loop (with pictures): https://devnoyo0123.github.io/loop-guide/ |
+| ko-KR | 📖 사용법(그림 안내): https://devnoyo0123.github.io/loop-guide/ |
+| ja-JP | 📖 使い方（画像つき）: https://devnoyo0123.github.io/loop-guide/ |
+| zh-CN | 📖 使用指南（附图）：https://devnoyo0123.github.io/loop-guide/ |
+| es-ES | 📖 Cómo usar Loop (con imágenes): https://devnoyo0123.github.io/loop-guide/ |
+| vi | 📖 Cách dùng Loop (có hình): https://devnoyo0123.github.io/loop-guide/ |
+| hi-IN | 📖 Loop कैसे इस्तेमाल करें (तस्वीरों के साथ): https://devnoyo0123.github.io/loop-guide/ |
+| it-IT | 📖 Come usare Loop (con immagini): https://devnoyo0123.github.io/loop-guide/ |
+
+앱 안에서는 설정 › 앱 정보 › Loop 사용법(그림은 `assets/guide/{ko,en}/`).

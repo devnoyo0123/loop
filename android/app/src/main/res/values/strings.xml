@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="alarm_label">↩ Loop · Loop fired</string>
+    <string name="alarm_snooze">Again in 10 min</string>
+    <string name="alarm_confirm">OK</string>
+    <string name="alarm_no_content">(no content)</string>
+    <string name="alarm_enable_fullscreen">Show full screen</string>
+    <string name="alarm_fullscreen_off">Full-screen alarm is off</string>
+    <!-- PC 연결 세션 유지 알림 (PcLinkService, ADR-003) -->
+    <string name="pclink_channel_name">PC connection</string>
+    <string name="pclink_connected_title">Connected to your PC</string>
+    <string name="pclink_connected_text">Claude can read your logs. Stays on for 1 hour after the last use.</string>
+    <string name="pclink_disconnect">Disconnect</string>
+</resources>

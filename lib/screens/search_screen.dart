@@ -6,7 +6,9 @@ import '../data/loop_db.dart';
 import '../design/tokens.dart';
 import '../l10n/generated/app_localizations.dart';
 import '../models/log_entry.dart';
+import '../utils/ad_slots.dart';
 import '../utils/time_format.dart';
+import '../widgets/native_ad_card.dart';
 
 /// 전문 검색 화면 — FTS5 역색인이라 타이핑마다 즉시 결과가 온다 (250ms 디바운스).
 /// 기본은 BM25 관련도순, 칩으로 최신순 전환. 결과를 탭하면 그 로그를
@@ -31,6 +33,10 @@ class _SearchScreenState extends State<SearchScreen> {
   final _focus = FocusNode();
   Timer? _debounce;
   List<({LogEntry log, String snippet})> _results = [];
+
+  /// 검색 결과에도 광고 — 타임라인과 같은 규칙(한 화면 최대 1개, 맨 위 금지).
+  /// (2026-11-16 사용자 결정)
+  final _adSlots = AdSlots();
 
   /// 한 번이라도 검색했는가 — "결과 없음"과 "아직 입력 전"을 구별.
   bool _searched = false;
@@ -115,11 +121,25 @@ class _SearchScreenState extends State<SearchScreen> {
                               style: const TextStyle(
                                   color: LoopColors.textDim, fontSize: 14)),
                         )
-                      : ListView.builder(
-                          padding: const EdgeInsets.only(
-                              bottom: LoopSpacing.xl, top: LoopSpacing.xs),
-                          itemCount: _results.length,
-                          itemBuilder: (context, i) => _tile(_results[i]),
+                      : LayoutBuilder(
+                          builder: (context, constraints) {
+                            _adSlots.configureForViewport(
+                              constraints.maxHeight,
+                              textScale:
+                                  MediaQuery.textScalerOf(context).scale(1.0),
+                            );
+                            final ads =
+                                _adSlots.listPositionsFor(_results.length);
+                            final adSet = ads.toSet();
+                            return ListView.builder(
+                              padding: const EdgeInsets.only(
+                                  bottom: LoopSpacing.xl, top: LoopSpacing.xs),
+                              itemCount: _results.length + ads.length,
+                              itemBuilder: (context, i) => adSet.contains(i)
+                                  ? const NativeAdCard()
+                                  : _tile(_results[i - AdSlots.adsBefore(ads, i)]),
+                            );
+                          },
                         ),
                 ),
               ],

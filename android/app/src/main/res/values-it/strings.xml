@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="alarm_label">↩ Loop attivato</string>
+    <string name="alarm_snooze">Ancora tra 10 min</string>
+    <string name="alarm_confirm">OK</string>
+    <string name="alarm_no_content">(nessun contenuto)</string>
+    <!-- PC 연결 세션 유지 알림 (PcLinkService, ADR-003) -->
+    <string name="pclink_channel_name">Connessione al PC</string>
+    <string name="pclink_connected_title">Connesso al PC</string>
+    <string name="pclink_connected_text">Claude può consultare i tuoi registri. Resta attivo per 1 ora dall\'ultimo utilizzo.</string>
+    <string name="pclink_disconnect">Disconnetti</string>
+</resources>

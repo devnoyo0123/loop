@@ -153,6 +153,14 @@ macOS 샌드박스 entitlements: `network.client`(날씨 API), `personal-informa
 생성된다. 포크 구조(parent_id/root_id/path)를 그대로 재사용하므로 "몇 번 반복됐는지"는
 `root_id`/`repeat_rule_id`로 바로 셀 수 있다.
 
+**v8 (2026-10-30, 사용자 결정) — 루프는 사슬의 끝에서 이어진다**: 발화 포크는 더 이상
+원본에 방사형으로 달리지 않고 **직전 발화(첫 발화면 원본 줄기의 최신 기록,
+`latestLeafOf`)에 체인**으로 달린다. 캐치업이 시간순으로 도므로 사슬이 발화 순서와
+같아지고, 루프 보기가 그 반복의 전체 이력을 한 줄로 보여준다. 기존 방사형 데이터는
+그대로 두고 새 발화부터 체인 (마이그레이션 없음). Loop 시트에서 루프를 걸 때도
+기본 부착 대상은 사슬의 끝(`latestLeafOf`)이고, 보인 로그가 중간일 때만
+"여기서부터" 선택지로 분기할 수 있다. 곡선 회차(loop_count) 제안도 부착 대상 기준.
+
 - **발화 타이밍**: 알림은 다가오는 발화 12개를 미리 걸고 앱 켤 때마다 다시 맞춘다.
   로그 생성은 앱이 켜진 시점에 `settleRepeats()`가 처리 — 안드로이드는 앱이
   꺼져 있으면 코드를 못 돌리는 구조.
@@ -210,3 +218,15 @@ SAF "열기"(MainActivity.kt `pick`/`openRead`/`readChunk`/`closeRead`)로
 512KB 청크를 읽고 chunked UTF-8 디코더로 줄을 복원(청크 경계의 멀티바이트
 안전). 트랜잭션으로 원자성 보장 — 형식 오류면 rollback. 살아있는 반복 규칙의
 next_fire_at이 과거면 이후 settleRepeats가 몰아 생성(기존 동작과 동일).
+
+## 공유 정체성·출처 (v11, 2026-11-01)
+
+사슬 공유의 스키마·페이로드·정책·UI는 docs/share-design.md 참고.
+
+- `peers`(상대 기기 식별자·표시명), `chain_shares`(사슬 수신 출처, 사슬당
+  첫 수신 1개) 테이블 추가, `logs.author_id` 컬럼 추가(null = 내가 씀).
+- 정체성은 settings의 `device_id`(첫 공유 시 생성되는 ULID) + `share_name`
+  — OS 식별자 미사용, 기기명과 무관.
+- 공유 임포트는 `importSharedChainLines` — participants를 peers에 등록하고
+  저자를 스탬프하며, 살아있던 반복 규칙은 이어받기가 아니면 정지 상태로만
+  들어온다(`ruleForReceive` — catch-up 홍수 방지, 단일 강제 지점).

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 
@@ -19,12 +21,28 @@ class LocationService {
   /// 꺼져 있으면 장소뿐 아니라 날씨도 안 붙는다(_attachContext가 통째로 건너뜀).
   static bool enabled = true;
 
+  static Future<void>? _permissionGate;
+
+  /// 진행 중인 권한 확인·요청(시스템 권한 창)이 끝날 때 완료. 없으면 즉시.
+  /// 첫 저장 직후 코치 마크 ④가 위치 권한 창과 겹치지 않게 기다리는 용도.
+  static Future<void> get permissionSettled => _permissionGate ?? Future.value();
+
   static Future<LocationCapture?> capture() async {
     if (!enabled) return null;
+    // 권한 단계가 끝날 때까지 문을 닫아 둔다 — 동기적으로 걸어야 호출 직후
+    // permissionSettled를 보는 쪽이 놓치지 않는다.
+    final gate = Completer<void>();
+    _permissionGate = gate.future;
     try {
-      var permission = await Geolocator.checkPermission();
-      if (permission == LocationPermission.denied) {
-        permission = await Geolocator.requestPermission();
+      LocationPermission permission;
+      try {
+        permission = await Geolocator.checkPermission();
+        if (permission == LocationPermission.denied) {
+          permission = await Geolocator.requestPermission();
+        }
+      } finally {
+        gate.complete();
+        if (identical(_permissionGate, gate.future)) _permissionGate = null;
       }
       if (permission == LocationPermission.denied ||
           permission == LocationPermission.deniedForever) {

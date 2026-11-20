@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    width:390px; height:844px; background:#0B0D12; overflow:hidden; position:relative;
+    font-family:-apple-system,'Apple SD Gothic Neo','Noto Sans KR',sans-serif; color:#E8EAF2;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; padding:32px 24px;
+  }
+  .ribbon { position:absolute; top:-48px; right:-48px; width:150px; height:150px;
+    transform:rotate(45deg); z-index:9;
+    background:repeating-linear-gradient(90deg,#7E1E2B 0 16px,#F5F0EA 16px 30px,#7E1E2B 30px 52px); }
+  .big { width:78px; height:78px; border-radius:50%; background:rgba(125,226,195,.1);
+    border:2px solid #7DE2C3; color:#7DE2C3; font-size:36px; font-weight:800;
+    display:flex; align-items:center; justify-content:center; margin-bottom:22px; }
+  .title { font-size:24px; font-weight:800; margin-bottom:8px; }
+  .desc { font-size:14px; color:#8B90A0; text-align:center; line-height:1.6; margin-bottom:26px; }
+  .chain { width:100%; background:#12151D; border:1px solid #262B3A; border-radius:16px; padding:16px; }
+  .chain .t { font-size:14.5px; line-height:1.5; }
+  .chain .m { font-size:12px; color:#8B90A0; margin-top:6px; }
+  .loop { width:100%; background:#12151D; border:1px solid rgba(167,139,250,.4); border-radius:16px; padding:16px; margin-top:12px; }
+  .loop .h { font-size:15px; font-weight:700; color:#A78BFA; display:flex; align-items:center; gap:8px; }
+  .loop .d { font-size:13px; color:#C9CDD9; margin-top:7px; line-height:1.55; }
+  .loop .next { margin-top:10px; font-size:12.5px; color:#8B90A0; }
+  .loop .next b { color:#7DE2C3; font-weight:700; }
+  .spacer { flex:1; }
+  .btn { display:block; width:100%; border:none; border-radius:28px; background:#A78BFA; color:#0B0D12;
+    font-size:16px; font-weight:700; padding:16px 0; text-align:center; font-family:inherit; }
+  .sub { display:block; width:100%; text-align:center; background:none; border:none; color:#8B90A0;
+    font-size:13.5px; padding:13px 0 2px; font-family:inherit; }
+</style>
+</head>
+<body>
+  <div class="ribbon"></div>
+  <div class="big">✓</div>
+  <div class="title">가져왔어요</div>
+  <div class="desc">사슬 52개 기록이 내 타임라인에 그대로 붙었어요.</div>
+
+  <div class="chain">
+    <div class="t">물 하루 8잔 마시기 — 3주째 도전 중</div>
+    <div class="m">10.12 시작 · 기록 52개 · 사진 3장 · 동영상 1개</div>
+  </div>
+  <div class="loop">
+    <div class="h">🔁 살아있는 루프로 이어받음</div>
+    <div class="d">민수의 발화 이력은 그대로 남고, 알림은 이제 내 시간표로 울려요.</div>
+    <div class="next">다음 발화 <b>오늘 21:00</b> · 2시간마다</div>
+  </div>
+
+  <div class="spacer"></div>
+  <button class="btn">사슬 보기</button>
+  <button class="sub">나중에</button>
+</body>
+</html>

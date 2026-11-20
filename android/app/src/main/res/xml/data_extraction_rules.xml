@@ -5,11 +5,17 @@
 <data-extraction-rules>
     <cloud-backup>
         <include domain="file" path="."/>
+        <!-- 동영상·이미지 파일 제외 — 클라우드 백업 25MB 한도 보호 (v9/v10) -->
+        <exclude domain="file" path="videos"/>
+        <exclude domain="file" path="images"/>
         <include domain="database" path="."/>
         <include domain="sharedpref" path="."/>
     </cloud-backup>
     <device-transfer>
         <include domain="file" path="."/>
+        <!-- 동영상·이미지 파일 제외 (v9/v10) — 수동 내보내기로 이관 -->
+        <exclude domain="file" path="videos"/>
+        <exclude domain="file" path="images"/>
         <include domain="database" path="."/>
         <include domain="sharedpref" path="."/>
     </device-transfer>

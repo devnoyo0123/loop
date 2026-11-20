@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 알람 '확인' 버튼 — 앱(Flutter)의 알약 버튼과 같은 끝 둥근 모양 (2026-11-01). -->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="#330B0D12">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#A78BFA" />
+            <corners android:radius="999dp" />
+        </shape>
+    </item>
+</ripple>

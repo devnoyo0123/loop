@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/services.dart';
 
 import '../data/loop_db.dart';
+import 'image_store.dart';
+import 'video_store.dart';
 
 /// .looplog(JSONL) 내보내기.
 /// SAF 문서 생성(저장 위치 선택) → DB에서 한 줄씩 읽어 512KB 청크로 기록.
@@ -12,17 +16,48 @@ class ExportService {
   static const _chunkBytes = 512 * 1024;
 
   /// 내보내기 실행. 저장 위치에서 취소하면 false, 완료하면 true.
-  static Future<bool> export(LoopDb db, {required String fileName}) async {
-    final uri = await _ch.invokeMethod<String>(
-        'create', {'name': fileName, 'mime': _mime});
+  /// [videos]·[images]를 주면 첨부 파일도 base64로 인라인 — 무손실 유지.
+  /// (v9/v10)
+  static Future<bool> export(
+    LoopDb db, {
+    required String fileName,
+    VideoStore? videos,
+    ImageStore? images,
+  }) => exportLines(
+    fileName,
+    db.exportLines(
+      videoLoader: videos == null
+          ? null
+          : (fileName) {
+              final bytes = videos.read(fileName);
+              return bytes == null ? null : base64Encode(bytes);
+            },
+      imageLoader: images == null
+          ? null
+          : (fileName) {
+              final bytes = images.read(fileName);
+              return bytes == null ? null : base64Encode(bytes);
+            },
+    ),
+  );
+
+  /// [lines]을 그대로 .looplog 파일로 — 사슬 공유(share_sheet)가 쓴다.
+  /// 전체 저널이 아니라 이미 만들어 둔 라인을 스트리밍 기록한다.
+  static Future<bool> exportLines(String fileName, Iterable<String> lines) async {
+    final uri = await _ch.invokeMethod<String>('create', {
+      'name': fileName,
+      'mime': _mime,
+    });
     if (uri == null) return false; // 사용자가 저장 위치에서 취소
 
     final handle = await _ch.invokeMethod<int>('open', {'uri': uri});
     if (handle == null) return false;
     final buf = StringBuffer();
     try {
-      for (final line in db.exportLines()) {
-        buf..write(line)..write('\n');
+      for (final line in lines) {
+        buf
+          ..write(line)
+          ..write('\n');
         if (buf.length >= _chunkBytes) {
           await _write(handle, buf);
         }
@@ -38,8 +73,7 @@ class ExportService {
   }
 
   static Future<void> _write(int handle, StringBuffer buf) async {
-    await _ch.invokeMethod(
-        'write', {'handle': handle, 'text': buf.toString()});
+    await _ch.invokeMethod('write', {'handle': handle, 'text': buf.toString()});
     buf.clear();
   }
 

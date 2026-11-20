@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="alarm_label">↩ ループ発火</string>
+    <string name="alarm_snooze">10分後にもう一度</string>
+    <string name="alarm_confirm">OK</string>
+    <string name="alarm_no_content">(内容なし)</string>
+    <!-- PC 연결 세션 유지 알림 (PcLinkService, ADR-003) -->
+    <string name="pclink_channel_name">PC接続</string>
+    <string name="pclink_connected_title">PCに接続中</string>
+    <string name="pclink_connected_text">Claudeが記録を参照できます。最後の利用から1時間つながったままです。</string>
+    <string name="pclink_disconnect">切断</string>
+</resources>

@@ -1,7 +1,8 @@
 # ADR-001 — 앱 내장 로컬 MCP 서버로 같은 Wi-Fi의 AI 에이전트에 기록 컨텍스트 제공
 
-> 날짜: 2026-11-12 · 상태: **채택** (구현 P1~P4 완료 — `docs/mcp-server-plan.md` §3 참조)
-> 관련 문서: 상세 설계 `docs/mcp-design.md` · 계획/리스크 `docs/mcp-server-plan.md`
+> 날짜: 2026-11-12 · 상태: **대체됨** — 2026-11-17 ADR-002로 전송 방향 반전(맥 브리지 + 폰 클라이언트).
+> 폰 내장 서버 구현은 2026-11-17 스토어 출시 전에 제거됨. 이 문서는 결정 기록으로 보존한다.
+> 관련 문서: 상세 설계 `docs/mcp-design.md` · 계획/리스크 `docs/mcp-server-plan.md` · 후속 `docs/adr-002-desktop-mcp-bridge.md`
 
 ## 배경
 

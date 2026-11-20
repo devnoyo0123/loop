@@ -8,4 +8,6 @@
     <locale android:name="zh"/>
     <locale android:name="es"/>
     <locale android:name="vi"/>
+    <locale android:name="it"/>
+    <locale android:name="hi"/>
 </locale-config>

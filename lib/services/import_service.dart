@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 
 import '../data/loop_db.dart';
+import 'video_store.dart';
 
 /// .looplog(JSONL) 가져오기 — 내보내기([ExportService])의 역.
 /// SAF "열기"로 고른 문서를 512KB 청크로 읽어 줄 단위로 되돌리고,
@@ -12,14 +13,32 @@ class ImportService {
 
   /// 파일을 고르고 바로 가져온다.
   /// 선택 취소면 null, 완료면 통계. 형식이 틀리면 FormatException.
-  static Future<ImportStats?> pickAndImport(LoopDb db) async {
+  /// [videos]를 주면 인라인된 동영상 본문을 파일로 복원한다. (v9)
+  static Future<ImportStats?> pickAndImport(
+    LoopDb db, {
+    VideoStore? videos,
+  }) async {
     final uri = await _ch.invokeMethod<String>('pick');
     if (uri == null) return null; // 사용자가 파일 선택을 취소
 
     final handle = await _ch.invokeMethod<int>('openRead', {'uri': uri});
     if (handle == null) return null;
     try {
-      return await db.importLines(linesFromChunks(_chunks(handle)));
+      return await db.importLines(
+        linesFromChunks(_chunks(handle)),
+        videoWriter: videos == null
+            ? null
+            : (fileName, bytes) => videos.save(
+                // 내보낸 파일명 그대로 복원 — id 충돌이 없어 안전.
+                fileName.endsWith(VideoStore.ext)
+                    ? fileName.substring(
+                        0,
+                        fileName.length - VideoStore.ext.length,
+                      )
+                    : fileName,
+                bytes,
+              ),
+      );
     } finally {
       await _ch.invokeMethod('closeRead', {'handle': handle});
     }
@@ -27,8 +46,9 @@ class ImportService {
 
   static Stream<Uint8List> _chunks(int handle) async* {
     while (true) {
-      final chunk =
-          await _ch.invokeMethod<Uint8List>('readChunk', {'handle': handle});
+      final chunk = await _ch.invokeMethod<Uint8List>('readChunk', {
+        'handle': handle,
+      });
       if (chunk == null || chunk.isEmpty) break;
       yield chunk;
     }
@@ -39,8 +59,9 @@ class ImportService {
   /// (네이티브 채널 없이 테스트할 수 있도록 분리)
   static Stream<String> linesFromChunks(Stream<Uint8List> chunks) async* {
     final decoded = StringBuffer();
-    final decoderSink = utf8.decoder
-        .startChunkedConversion(StringConversionSink.fromStringSink(decoded));
+    final decoderSink = utf8.decoder.startChunkedConversion(
+      StringConversionSink.fromStringSink(decoded),
+    );
     var carry = '';
     await for (final chunk in chunks) {
       decoderSink.add(chunk);

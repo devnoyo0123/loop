@@ -6,9 +6,47 @@
     <!-- 알람형 루프 — 잠금 화면도 깨우는 전체 화면 발화. Android 14+는
          설정에서 "알람 및 리마인더" 허용이 필요(권한 없으면 알림으로 폴백) -->
     <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT"/>
+    <!-- 네이티브 전체화면 알람(AlarmActivity)의 진동·화면 깨우기 -->
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <!-- 알람 벨소리 재생 포그라운드 서비스 — 알림 채널 소리는 One UI가 FSI
+         발화 때 스킵하므로 앱이 STREAM_ALARM으로 직접 재생 (2026-11-01) -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK"/>
+    <!-- PC 연결 세션 유지(PcLinkService) — 연결 중에만, 마지막 질의 후 60분.
+         Android 15+는 dataSync 하루 6시간 한도 → onTimeout에서 종료 (ADR-003) -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC"/>
+    <!-- 다른 앱 사용 중에도 알람 화면을 최상위로 띄우는 오버레이 — One UI가
+         백그라운드 액티비티 시작을 가변 차단하므로 알람 앱 표준 방식으로 해결 -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
     <!-- 로그 위치 자동 캡처 -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <!-- 광고 SDK -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <!-- 사슬 공유 — Nearby Connections (NearbyBridge.kt).
+         런타임 권한의 API 범위는 공식 문서 그대로
+         (developers.google.com/nearby/connections/android/get-started).
+         ⚠️ 단, 일반 권한 4개(WIFI_STATE·BLUETOOTH 계열)는 maxSdk를 두지 않는다 —
+         문서 표는 maxSdk 32/30이지만 실제 Play 서비스는 API 35에서도
+         "Missing permission ACCESS_WIFI_STATE"로 startAdvertising을 거부했다
+         (2026-11-01 에뮬레이터 API 35 확인). 일반 권한이라 사용자 팝업은 없다.
+         위치(COARSE/FINE)는 로그 위치 캡처용으로 위에 이미 선언돼 있다.
+         런타임 요청 조합은 lib/services/share_platform.dart. -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <uses-permission android:minSdkVersion="31" android:name="android.permission.BLUETOOTH_ADVERTISE"/>
+    <uses-permission android:minSdkVersion="31" android:name="android.permission.BLUETOOTH_CONNECT"/>
+    <uses-permission android:minSdkVersion="31" android:name="android.permission.BLUETOOTH_SCAN"
+        android:usesPermissionFlags="neverForLocation"/>
+    <uses-permission android:minSdkVersion="33" android:name="android.permission.NEARBY_WIFI_DEVICES"
+        android:usesPermissionFlags="neverForLocation"/>
+    <!-- play-services-nearby가 병합하는 Wi-Fi 권한이 wifi 필수로 암시되지 않게 (1.0.27 사전 검사 경고) -->
+    <uses-feature android:name="android.hardware.wifi" android:required="false"/>
+
     <application
         android:label="loop"
         android:name="${applicationName}"
@@ -50,11 +88,54 @@
                 <action android:name="android.intent.action.MY_PACKAGE_REPLACED"/>
             </intent-filter>
         </receiver>
+        <!-- 알람형 루프 — 시계 앱과 같은 setAlarmClock 경로, 전체화면 발화 -->
+        <receiver android:exported="false" android:name=".AlarmReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
+        <activity
+            android:name=".AlarmActivity"
+            android:exported="false"
+            android:excludeFromRecents="true"
+            android:launchMode="singleInstance"
+            android:showWhenLocked="true"
+            android:turnScreenOn="true"
+            android:taskAffinity=""
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"/>
+        <!-- 알람 벨소리 재생 — 확인할 때까지 STREAM_ALARM 반복 -->
+        <service
+            android:name=".AlarmSoundService"
+            android:exported="false"
+            android:foregroundServiceType="mediaPlayback"/>
+        <!-- PC 연결 세션 유지 — 화면 꺼짐·다른 앱 사용 중에도 맥 브리지 링크 유지 -->
+        <service
+            android:name=".PcLinkService"
+            android:exported="false"
+            android:foregroundServiceType="dataSync"/>
+        <!-- 동영상 첨부 재생 — 앱 내부 파일을 content URI로 시스템 플레이어에
+             넘긴다. 경로 정의는 res/xml/file_paths.xml. (v9) -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"/>
+        </provider>
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+        <!-- AdMob 앱 ID — 실제 값 (AdMob 앱 설정: Loop/Android).
+             광고 단위는 lib/services/ads_config.dart에서 관리 — 개발 중엔
+             구글 테스트 단위라 테스트 광고만 나가고, 스토어 공개 때
+             nativeUnit을 prodNativeUnit으로 교체하면 실제 광고 ON. -->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-5337207847889765~2305999987"/>
     </application>
     <!-- Required to query activities that can process text, see:
          https://developer.android.com/training/package-visibility and

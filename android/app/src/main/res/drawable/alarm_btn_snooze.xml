@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 알람 '10분 뒤' 버튼 — 앱(Flutter)의 알약 버튼과 같은 끝 둥근 모양.
+     Theme.Black 기본 Button은 각진 9-patch라 직접 그린다 (2026-11-01). -->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="#337DE2C3">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#1A1E2A" />
+            <corners android:radius="999dp" />
+        </shape>
+    </item>
+</ripple>

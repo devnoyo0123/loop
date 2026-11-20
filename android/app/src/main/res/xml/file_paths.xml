@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 동영상 파일 공유 — VideoStore의 videos/ 디렉터리를 노출한다.
+     path_provider의 getApplicationSupportDirectory는 Android에서
+     files/data/를 반환하므로 두 경로를 모두 선언한다. (v10.3 수정:
+     files/videos만 선언해 FileProvider URI 생성이 실패하던 문제) -->
+<paths>
+    <files-path name="videos" path="videos/"/>
+    <files-path name="videos_support" path="data/videos/"/>
+</paths>

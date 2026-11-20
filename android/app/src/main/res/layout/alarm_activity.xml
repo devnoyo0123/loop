@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 알람형 루프의 전체화면 발화 — docs/mockups B안 (2026-10-18 확정).
+     콘텐츠 영역을 weight=1로 묶고 버튼을 하단에 고정해 어느 방향에서도
+     버튼이 항상 보인다. 가로(폴드 커버 눕힘)에선 dimens-land의 작은
+     크기를 쓴다. (2026-11-01 버튼 화면 밖 밀림 버그 수정) -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0B0D12"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/alarmDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/alarm_date_top"
+            android:textColor="#8B90A0"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/alarmTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textColor="#E8EAF2"
+            android:textSize="@dimen/alarm_time_size"
+            android:textStyle="normal" />
+
+        <TextView
+            android:id="@+id/alarmLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/alarm_label_top"
+            android:text="@string/alarm_label"
+            android:textColor="#A78BFA"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/alarmContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/alarm_content_side"
+            android:layout_marginRight="@dimen/alarm_content_side"
+            android:layout_marginTop="10dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:lineSpacingExtra="4dp"
+            android:maxLines="3"
+            android:textColor="#E8EAF2"
+            android:textSize="@dimen/alarm_content_size"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginBottom="@dimen/alarm_buttons_bottom"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/snoozeButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="7dp"
+            android:layout_weight="1"
+            android:background="@drawable/alarm_btn_snooze"
+            android:minHeight="52dp"
+            android:stateListAnimator="@null"
+            android:textAllCaps="false"
+            android:text="@string/alarm_snooze"
+            android:textColor="#7DE2C3"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/confirmButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="7dp"
+            android:layout_weight="1"
+            android:background="@drawable/alarm_btn_confirm"
+            android:minHeight="52dp"
+            android:stateListAnimator="@null"
+            android:textAllCaps="false"
+            android:text="@string/alarm_confirm"
+            android:textColor="#0B0D12"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="alarm_label">↩ Vòng lặp kích hoạt</string>
+    <string name="alarm_snooze">Lặp lại sau 10 phút</string>
+    <string name="alarm_confirm">OK</string>
+    <string name="alarm_no_content">(không có nội dung)</string>
+    <!-- PC 연결 세션 유지 알림 (PcLinkService, ADR-003) -->
+    <string name="pclink_channel_name">Kết nối PC</string>
+    <string name="pclink_connected_title">Đã kết nối với PC</string>
+    <string name="pclink_connected_text">Claude có thể xem nhật ký của bạn. Giữ kết nối 1 giờ kể từ lần dùng cuối.</string>
+    <string name="pclink_disconnect">Ngắt kết nối</string>
+</resources>

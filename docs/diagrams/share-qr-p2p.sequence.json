@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "1안 · QR 키교환 + 근거리 P2P — 서버 없음",
+    "output": "docs/diagrams/share-qr-p2p.sequence.html",
+    "viewBox": [1040, 560],
+    "column_fit": "spread",
+    "quality_profile": "showcase",
+    "views": [
+      {
+        "id": "key-handshake",
+        "label": "열쇠 교환",
+        "focus": ["deviceA", "qr", "deviceB"],
+        "note": "QR은 데이터가 아니라 열쇠만 옮긴다"
+      },
+      {
+        "id": "data-hop",
+        "label": "데이터 전송",
+        "focus": ["deviceA", "deviceB"],
+        "note": "근거리 무선으로 기기에서 기기로 직접 — 인터넷 불필요"
+      }
+    ]
+  },
+  "participants": [
+    { "id": "deviceA", "type": "frontend", "label": "내 기기", "sublabel": "Loop · 보내는 쪽" },
+    { "id": "qr", "type": "external", "label": "QR", "sublabel": "열쇠 전달 수단" },
+    { "id": "deviceB", "type": "frontend", "label": "친구 기기", "sublabel": "Loop · 받는 쪽" }
+  ],
+  "segments": [
+    { "from": 150, "to": 200, "label": "열쇠 교환 (QR)" },
+    { "from": 205, "to": 270, "label": "데이터 전송 (근거리 무선)" }
+  ],
+  "messages": [
+    { "id": "key-encode", "from": "deviceA", "to": "qr", "y": 160, "label": "세션 키를 QR에 담는다", "variant": "security" },
+    { "id": "key-scan", "from": "qr", "to": "deviceB", "y": 185, "label": "스캔 — 열쇠 교환 완료", "variant": "security" },
+    { "id": "data-hop", "from": "deviceA", "to": "deviceB", "y": 215, "label": "근거리 무선으로 암호화 데이터 직접 전송", "variant": "emphasis", "note": "Wi-Fi Direct·BLE — 인터넷·서버를 전혀 거치지 않는다" },
+    { "id": "ack", "from": "deviceB", "to": "deviceA", "y": 250, "label": "수신 확인 — 같은 열쇠로 복호화·머지", "variant": "return" }
+  ],
+  "activations": [
+    { "participant": "deviceA", "from": 160, "to": 255, "type": "frontend" },
+    { "participant": "qr", "from": 165, "to": 190, "type": "external" },
+    { "participant": "deviceB", "from": 185, "to": 255, "type": "frontend" }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "QR의 역할",
+      "items": [
+        "QR은 통신 채널이 아니라 '열쇠 건네주기' — 눈앞의 상대에게 키를 직접 넘긴다",
+        "실제 데이터 통로는 근거리 무선(Wi-Fi Direct·BLE)",
+        "프리셋처럼 작은 데이터는 QR 자체에 실을 수도 있다"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "장점",
+      "items": [
+        "서버·비용·계정 전부 불필요 — 완전 오프라인",
+        "데이터가 인터넷에 올라가는 일이 원천적으로 없다",
+        "로컬 퍼스트 100% — 기기 밖으로 나가는 경로 자체가 없음"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "한계",
+      "items": [
+        "두 사람이 같은 자리에 있어야 한다 — 멀리 있는 친구와는 불가",
+        "근거리 무선은 OS별 네이티브 구현 부담이 크다",
+        "동영상 같은 큰 데이터는 전송 시간이 오래 걸린다"
+      ]
+    }
+  ]
+}

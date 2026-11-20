@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  * { margin:0; padding:0; }
+  body { background:#fff; font-family:-apple-system,"Segoe UI","Noto Sans",sans-serif; }
+  .shot {
+    width:1080px; height:1920px; position:relative; overflow:hidden;
+    background: radial-gradient(900px 500px at 50% -100px, #171B28, #0B0D12);
+  }
+  .copy { text-align:center; padding-top:84px; height:320px; }
+  .h { color:#E8EAF2; font-size:58px; font-weight:800; letter-spacing:-.5px; }
+  .s { color:#8B90A0; font-size:30px; margin-top:18px; font-weight:500; }
+  .frame {
+    position:absolute; left:100px; top:400px; width:880px; height:1520px;
+    border-radius:56px; border:14px solid #000; overflow:hidden;
+    box-shadow:0 30px 80px rgba(0,0,0,.6);
+    background:#0B0D12;
+  }
+  .frame img { width:100%; display:block; margin-top:-40px; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+const COPY = {
+  en: [
+    ["Log your day in order","Capture the thought right where it happened"],
+    ["Loop the thoughts that matter","It comes back when the time is right"],
+    ["Continue where you left off","The whole chain, one screen"],
+    ["Loops coming this week","Your week of reminders at a glance"],
+    ["Find any past thought, fast","Search content and places"],
+  ],
+  zh: [
+    ["按顺序积累的一天记录","冒出的想法，记在它发生的时刻"],
+    ["重要的事，用循环提醒","时间到了，它会回来找你"],
+    ["流逝的想法，续写接续","从最初到现在，一屏看尽"],
+    ["本周将回来的循环","未来7天，一眼看清"],
+    ["秒找过去的想法","内容、地点都能搜"],
+  ],
+  es: [
+    ["Registra tu día en orden","Guarda la idea justo donde surgió"],
+    ["Pon un bucle a lo importante","Vuelve cuando toque"],
+    ["Continúa donde lo dejaste","Toda la cadena en una pantalla"],
+    ["Bucles de esta semana","Tus recordatorios de 7 días"],
+    ["Encuentra tus ideas al instante","Busca por contenido y lugar"],
+  ],
+};
+const SHOTS = ["1-timeline","2-loopsheet","3-chain","4-upcoming","5-search"];
+
+const lang = new URLSearchParams(location.search).get("lang") || "en";
+const copy = COPY[lang];
+document.getElementById("root").innerHTML = SHOTS.map((s, i) => `
+  <div class="shot" id="shot${i}">
+    <div class="copy">
+      <div class="h">${copy[i][0]}</div>
+      <div class="s">${copy[i][1]}</div>
+    </div>
+    <div class="frame"><img src="shots/${s}.png"></div>
+  </div>`).join("");
+</script>
+</body>
+</html>

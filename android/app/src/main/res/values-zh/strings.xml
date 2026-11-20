@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="alarm_label">↩ 循环触发</string>
+    <string name="alarm_snooze">10分钟后再次</string>
+    <string name="alarm_confirm">确定</string>
+    <string name="alarm_no_content">(无内容)</string>
+    <!-- PC 연결 세션 유지 알림 (PcLinkService, ADR-003) -->
+    <string name="pclink_channel_name">PC 连接</string>
+    <string name="pclink_connected_title">已连接到 PC</string>
+    <string name="pclink_connected_text">Claude 可以查看你的记录。最后一次使用后保持连接 1 小时。</string>
+    <string name="pclink_disconnect">断开</string>
+</resources>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Loop — 반복 주기 매달·매년 추가 미리보기</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background:#f2f3f7;
+    font-family:-apple-system,"Segoe UI","Noto Sans KR",sans-serif;
+    padding:48px 24px 64px;
+    display:flex; flex-direction:column; align-items:center; gap:40px;
+  }
+  .page-title { color:#1a1e2a; font-size:26px; font-weight:800; letter-spacing:-.3px; }
+  .page-sub { color:#6b7080; font-size:14px; margin-top:8px; text-align:center; line-height:1.6; }
+  .row { display:flex; gap:56px; align-items:flex-start; flex-wrap:wrap; justify-content:center; }
+  .col { display:flex; flex-direction:column; align-items:center; gap:20px; }
+
+  .frame-label { font-size:17px; font-weight:800; color:#1a1e2a; display:flex; align-items:center; gap:8px; }
+  .badge {
+    font-size:11.5px; font-weight:700; color:#fff; border-radius:999px; padding:3px 10px;
+  }
+  .badge.now { background:#8b90a0; }
+  .badge.new { background:#7de2c3; color:#0b0d12; }
+
+  /* ---- phone frame ---- */
+  .frame {
+    width:390px; border-radius:40px; border:10px solid #000; overflow:hidden;
+    box-shadow:0 24px 60px rgba(11,13,18,.35);
+    background:#0b0d12;
+  }
+  .statusbar {
+    height:44px; display:flex; align-items:center; justify-content:space-between;
+    padding:0 22px; color:#e8eaf2; font-size:12.5px; font-weight:600; background:#0b0d12;
+  }
+  .sheet {
+    background:#12151d; border-radius:20px 20px 0 0; margin-top:56px;
+    padding:18px 16px 22px; min-height:640px; position:relative;
+  }
+  .grab { position:absolute; top:8px; left:50%; transform:translateX(-50%);
+    width:36px; height:4px; border-radius:2px; background:#3a4054; }
+
+  .preview-card {
+    background:#1a1e2a; border-radius:10px; padding:14px; margin-bottom:14px;
+  }
+  .preview-card .content { color:#e8eaf2; font-size:13.5px; line-height:1.45; }
+  .preview-card .time { color:#8b90a0; font-size:11.5px; margin-top:6px; }
+
+  .btn-outline {
+    width:100%; border:1.4px solid #a78bfa; color:#a78bfa; background:none;
+    border-radius:999px; padding:11px 0; font-size:14px; font-weight:700;
+    display:flex; align-items:center; justify-content:center; gap:7px;
+  }
+  .section-label { color:#8b90a0; font-size:12.5px; margin:16px 0 8px; }
+  .seg {
+    display:flex; background:#12151d; border:1px solid #3a4054; border-radius:999px; overflow:hidden;
+  }
+  .seg > div { flex:1; text-align:center; padding:10px 0; color:#8b90a0; font-size:13.5px; font-weight:600; }
+  .seg > div.on { color:#e8eaf2; }
+  .seg > div.on::before { content:"✓ "; font-size:12px; }
+  .seg > div + div { border-left:1px solid #3a4054; }
+
+  .repeat-desc { color:#8b90a0; font-size:11.5px; margin-top:14px; line-height:1.5; }
+  .chips { display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
+  .chip {
+    padding:7px 13px; border-radius:999px; font-size:12.5px; font-weight:600;
+    background:#1a1e2a; border:1px solid #262b3a; color:#8b90a0;
+  }
+  .chip.sel { background:#a78bfa; border-color:#a78bfa; color:#0b0d12; }
+  .chip.new-chip { border-style:dashed; border-color:#7de2c3; color:#7de2c3; }
+  .chip.anchor { position:relative; }
+
+  .fire-row { display:flex; align-items:center; margin-top:16px; }
+  .fire-row .lbl { color:#8b90a0; font-size:12.5px; }
+  .fire-row .val {
+    margin-left:auto; color:#a78bfa; font-size:15px; font-weight:700; display:flex; align-items:center; gap:4px;
+  }
+  .next-fire { color:#7de2c3; font-size:11.5px; margin-top:12px; }
+  .btn-fill {
+    width:100%; background:#a78bfa; color:#0b0d12; border:none; border-radius:999px;
+    padding:13px 0; font-size:14.5px; font-weight:800; margin-top:16px;
+  }
+
+  /* ---- annotations ---- */
+  .notes { width:360px; display:flex; flex-direction:column; gap:10px; }
+  .note {
+    background:#fff; border-radius:12px; padding:12px 14px; font-size:12.5px; color:#3a4054;
+    line-height:1.55; box-shadow:0 2px 8px rgba(11,13,18,.06);
+  }
+  .note b { color:#1a1e2a; }
+  .note .n {
+    display:inline-block; width:18px; height:18px; border-radius:50%; background:#7de2c3; color:#0b0d12;
+    font-size:11px; font-weight:800; text-align:center; line-height:18px; margin-right:6px;
+  }
+  .pin {
+    position:absolute; width:20px; height:20px; border-radius:50%; background:#7de2c3; color:#0b0d12;
+    font-size:12px; font-weight:800; text-align:center; line-height:20px;
+    box-shadow:0 0 0 3px rgba(125,226,195,.25); z-index:5;
+  }
+  .footer-note { color:#6b7080; font-size:12.5px; text-align:center; line-height:1.7; max-width:640px; }
+  .footer-note code {
+    background:#e6e8ef; border-radius:5px; padding:1px 6px; font-size:11.5px; color:#1a1e2a;
+  }
+</style>
+</head>
+<body>
+
+<div>
+  <div class="page-title">반복 주기 — 매달 · 매년 추가</div>
+  <div class="page-sub">Loop 걸기 시트 · 반복 탭 &nbsp;|&nbsp; 좌: 현재 &nbsp;·&nbsp; 우: 변경 후 (매달 선택 상태)</div>
+</div>
+
+<div class="row">
+  <!-- ================= 현재 ================= -->
+  <div class="col">
+    <div class="frame-label"><span class="badge now">현재</span> 주기 프리셋 8개</div>
+    <div class="frame">
+      <div class="statusbar"><span>3:57</span><span>📶 🔋</span></div>
+      <div class="sheet">
+        <div class="grab"></div>
+        <div class="preview-card">
+          <div class="content">주말 계획: 오전엔 미술관, 그다음엔 줄 긴 빵집.</div>
+          <div class="time">08:20</div>
+        </div>
+        <button class="btn-outline">↩ 지금 이어쓰기</button>
+        <div class="section-label">다시 알려줘</div>
+        <div class="seg"><div>한 번</div><div class="on">반복</div></div>
+        <div class="repeat-desc">반복을 걸면 발화마다 이 로그의 이어쓰기가 자동으로 생성돼. 언제든 멈출 수 있어.</div>
+        <div class="chips">
+          <div class="chip">10분</div><div class="chip">30분</div><div class="chip">1시간</div><div class="chip">3시간</div>
+          <div class="chip">6시간</div><div class="chip sel">매일</div><div class="chip">평일</div><div class="chip">직접</div>
+        </div>
+        <div class="fire-row">
+          <span class="lbl">발화 시각</span>
+          <span class="val">오전 9:00</span>
+        </div>
+        <div class="next-fire">다음 내일 오전 9:00 · 이후 매일</div>
+        <button class="btn-fill">Loop 걸기</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= 변경 후 ================= -->
+  <div class="col">
+    <div class="frame-label"><span class="badge new">변경</span> 주기 프리셋 10개 · 매달/매년 추가</div>
+    <div class="frame">
+      <div class="statusbar"><span>3:57</span><span>📶 🔋</span></div>
+      <div class="sheet">
+        <div class="grab"></div>
+
+        <div class="preview-card">
+          <div class="content">주말 계획: 오전엔 미술관, 그다음엔 줄 긴 빵집.</div>
+          <div class="time">08:20</div>
+        </div>
+        <button class="btn-outline">↩ 지금 이어쓰기</button>
+        <div class="section-label">다시 알려줘</div>
+        <div class="seg"><div>한 번</div><div class="on">반복</div></div>
+        <div class="repeat-desc">반복을 걸면 발화마다 이 로그의 이어쓰기가 자동으로 생성돼. 언제든 멈출 수 있어.</div>
+        <div class="chips">
+          <div class="chip">10분</div><div class="chip">30분</div><div class="chip">1시간</div><div class="chip">3시간</div>
+          <div class="chip">6시간</div><div class="chip">매일</div><div class="chip">평일</div>
+          <div class="chip new-chip sel anchor">매달<span class="pin" style="top:-9px; right:-7px;">1</span></div><div class="chip new-chip">매년</div><div class="chip">직접</div>
+        </div>
+        <div class="fire-row">
+          <span class="lbl">발화일</span>
+          <span class="val" style="position:relative;">10.24(토) · 오전 9:00 ›<span class="pin" style="top:-11px; right:-26px;">2</span></span>
+        </div>
+        <div class="next-fire">다음 11.24(화) 오전 9:00 · 이후 매달 24일</div>
+        <button class="btn-fill">Loop 걸기</button>
+      </div>
+    </div>
+
+    <div class="notes">
+      <div class="note"><span class="n">1</span><b>매달·매년 칩 추가</b> — 평일과 직접 입력 사이. 선택하면 매일처럼 발화일을 고르는 행이 나타남</div>
+      <div class="note"><span class="n">2</span><b>발화일 행</b> — 탭하면 데이트피커 → 타임피커. 기본값은 오늘. "매달 24일", "매년 10.24"처럼 앵커 날짜를 정함</div>
+    </div>
+  </div>
+</div>
+
+<div class="footer-note">
+  동작 규칙 — <b>매달</b>: 앵커의 '일'을 유지하며 매달 발화 (31일로 골라도 2월엔 말일에 몰아 발화) ·
+  <b>매년</b>: 같은 날짜·시각에 매년 발화.<br>
+  규칙 라벨 예시: <code>매달 24일 09:00</code> · <code>매년 10.24 09:00</code> —
+  다가오는 루프 화면에는 매일 규칙과 같게 7일 창 안의 발화가 모두 표시됨.
+</div>
+
+</body>
+</html>

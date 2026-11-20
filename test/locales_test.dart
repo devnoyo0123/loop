@@ -3,12 +3,12 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'package:loop/l10n/generated/app_localizations.dart';
 
-/// 6개 언어(ko/en/ja/zh/es/vi)가 전부 생성·해석되는지 검증.
+/// 8개 언어(ko/en/ja/zh/es/vi/it/hi)가 전부 생성·해석되는지 검증.
 void main() {
-  test('supportedLocales에 6개 언어가 있다', () {
+  test('supportedLocales에 7개 언어가 있다', () {
     expect(
       AppLocalizations.supportedLocales.map((l) => l.languageCode).toSet(),
-      {'ko', 'en', 'ja', 'zh', 'es', 'vi'},
+      {'ko', 'en', 'ja', 'zh', 'es', 'vi', 'it', 'hi'},
     );
   });
 
@@ -22,6 +22,8 @@ void main() {
     expect(lookup('zh').searchHint, '搜索内容、地点');
     expect(lookup('es').searchHint, 'Buscar contenido y lugares');
     expect(lookup('vi').searchHint, 'Tìm nội dung, địa điểm');
+    expect(lookup('it').searchHint, 'Cerca testo e luoghi');
+    expect(lookup('hi').searchHint, 'टेक्स्ट और जगह खोजें');
   });
 
   test('플레이스홀더 보간이 언어별로 동작 — ruleDaily', () {
@@ -30,6 +32,21 @@ void main() {
     expect(lookup('zh').ruleDaily('09:00'), '每天 09:00');
     expect(lookup('es').ruleDaily('09:00'), 'Cada día a las 09:00');
     expect(lookup('vi').ruleDaily('09:00'), 'Hàng ngày lúc 09:00');
+    expect(lookup('it').ruleDaily('09:00'), 'Ogni giorno alle 09:00');
+    expect(lookup('hi').ruleDaily('09:00'), 'रोज़ 09:00');
+  });
+
+  test('내 루프만 보기 — 8개 언어 전부 해석', () {
+    expect(lookup('ko').mineOnlyTitle, '내 루프만 보기');
+    expect(lookup('en').mineOnlyTitle, 'My loops only');
+    expect(lookup('ja').mineOnlyTitle, '自分のループだけ');
+    expect(lookup('zh').mineOnlyTitle, '只看我的循环');
+    expect(lookup('es').mineOnlyTitle, 'Solo mis bucles');
+    expect(lookup('vi').mineOnlyTitle, 'Chỉ vòng lặp của tôi');
+    expect(lookup('it').mineOnlyTitle, 'Solo i miei loop');
+    expect(lookup('hi').mineOnlyTitle, 'केवल मेरे लूप');
+    expect(lookup('ko').mineOnlyBack, '전체 보기');
+    expect(lookup('en').mineOnlyBack, 'View all');
   });
 
   test('zh-CN처럼 지역 코드가 붙어도 기본 zh로 해석된다', () {

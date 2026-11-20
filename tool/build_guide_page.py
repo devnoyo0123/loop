@@ -89,6 +89,7 @@ SECTIONS = [
     ("guideBackup", ["08_backup"]),
     ("guideStats", ["09_stats"]),
     ("guideAlarm", ["10_alarm_permission", "11_alarm"]),
+    ("guidePc", ["12_pc_menu", "12_pc"]),
 ]
 
 # 화면 노출 순서 — 스토어 설명과 같이 화자 수(인구) 순. (2026-11-02 사용자 결정:

@@ -1,90 +1,56 @@
-import 'dart:convert';
-import 'dart:io';
-import 'dart:typed_data';
 import 'dart:ui' show PlatformDispatcher;
 
+import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/data/latest_all.dart' as tzdata;
 import 'package:timezone/timezone.dart' as tz;
 
-import '../data/loop_db.dart';
 import '../l10n/generated/app_localizations.dart';
 
-/// 알림 payload — 탭·액션 처리에 필요한 최소 정보.
-/// 알람의 [10분 후 다시]가 앱이 죽어 있어도 동작하려면 DB를 열어야 해서
-/// DB 디렉터리 경로를 함께 싣는다. (반복 발화는 규칙 id만 — legacy 형식)
-class LoopPayload {
-  const LoopPayload({required this.logId, this.dbDir});
-
-  final String logId;
-  final String? dbDir;
-
-  /// dbDir가 없으면 legacy/반복 형식 그대로 — decode가 둘 다 읽는다.
-  String encode() =>
-      dbDir == null ? logId : jsonEncode({'i': logId, 'd': dbDir});
-
-  /// JSON 형식({i,d})과 예전 단일 id 형식을 모두 받는다.
-  static LoopPayload decode(String? raw) {
-    if (raw == null || raw.isEmpty) return LoopPayload(logId: '');
-    if (raw.startsWith('{')) {
-      try {
-        final m = jsonDecode(raw) as Map<String, Object?>;
-        return LoopPayload(
-          logId: (m['i'] as String?) ?? '',
-          dbDir: m['d'] as String?,
-        );
-      } catch (_) {
-        return LoopPayload(logId: '');
-      }
-    }
-    return LoopPayload(logId: raw);
-  }
-}
-
-/// 로컬 알림 — "루프가 돌아왔어".
-/// - 소리·진동 + 상단 팝업(high)
-/// - 알림의 `확인` 액션으로 즉시 종료 (앱이 꺼져 있어도 동작)
-/// - 단발 루프는 작성 시점에, 반복은 다가오는 발화를 배치로 건다.
-/// - alarm=true면 시계 알람 등급: 무음 무시(ALARM 음원)·꺼야 멈춤(insistent)·
-///   잠금화면 전체(fullScreenIntent) + [10분 후 다시] 스누즈. (2026-10-18)
+/// 로컬 알림·알람 — "루프가 돌아왔어".
+///
+/// 두 등급이 있다:
+/// - 알림(기본): 소리 한 번, 상단 배너. 반복 발화와 일반 단발 루프.
+/// - 알람(2026-10-18): 시계 앱과 같은 setAlarmClock 네이티브 예약 —
+///   알림 배너를 거치지 않고 전체화면 발화 화면(AlarmActivity)을 띄우고,
+///   무음에도 알람음이 [확인]을 누를 때까지 울린다. [10분 후 다시] 스누즈는
+///   네이티브가 재예약하고, 기록을 남겨 다음 실행 때 Dart가 DB에 반영한다.
+///
 /// 위젯 트리 밖이라 시스템 locale로 직접 문자열을 조회한다.
 class LoopNotifications {
   static final _plugin = FlutterLocalNotificationsPlugin();
 
+  /// 네이티브 알람 채널 (MainActivity). 브라우저 설정과 채널을 공유한다.
+  static const _nativeCh = MethodChannel('app.loop/browser');
+
   static AppLocalizations get _l10n =>
       lookupAppLocalizations(PlatformDispatcher.instance.locale);
 
-  /// 스누즈 간격 — 알람의 [10분 후 다시].
-  static const snoozeAfter = Duration(minutes: 10);
+  /// 다른 앱 위에 알람 UI를 띄우는 특별 권한 — 알람 예약 전에 확인·유도.
+  static Future<bool> canDrawOverlays() async {
+    try {
+      return await _nativeCh.invokeMethod<bool>('canDrawOverlays') ?? false;
+    } catch (_) {
+      return false;
+    }
+  }
 
-  /// Android Notification.FLAG_INSISTENT — 알림을 닫을 때까지 소리 반복.
-  static const _flagInsistent = 4;
+  static Future<void> requestDrawOverlays() async {
+    try {
+      await _nativeCh.invokeMethod('requestDrawOverlays');
+    } catch (_) {}
+  }
 
-  static AndroidNotificationDetails _androidDetails({required bool alarm}) =>
+  static AndroidNotificationDetails _androidDetails() =>
       AndroidNotificationDetails(
-        alarm ? 'loop-alarms' : 'loops',
-        alarm ? _l10n.notifAlarmChannelName : _l10n.notifChannelName,
+        'loops',
+        _l10n.notifChannelName,
         channelDescription: _l10n.notifChannelDesc,
         importance: Importance.high,
         priority: Priority.high,
         playSound: true,
         enableVibration: true,
-        // 알람 등급 — 시계 앱의 알람과 같은 부류로 울린다.
-        category: alarm ? AndroidNotificationCategory.alarm : null,
-        audioAttributesUsage: alarm
-            ? AudioAttributesUsage.alarm
-            : AudioAttributesUsage.notification,
-        fullScreenIntent: alarm,
-        additionalFlags: alarm
-            ? Int32List.fromList(<int>[_flagInsistent])
-            : null,
         actions: [
-          if (alarm)
-            AndroidNotificationAction(
-              'snooze',
-              _l10n.snoozeAction,
-              showsUserInterface: false,
-            ),
           AndroidNotificationAction(
             'confirm',
             _l10n.notifConfirm,
@@ -92,6 +58,17 @@ class LoopNotifications {
             cancelNotification: true,
           ),
         ],
+      );
+
+  /// 그때의 나 전용 채널 — 조용한 아침 인사라 `확인` 액션 없이 소리만.
+  static AndroidNotificationDetails _onThisDayDetails() =>
+      AndroidNotificationDetails(
+        'onthisday',
+        _l10n.onThisDayChannelName,
+        channelDescription: _l10n.onThisDayChannelDesc,
+        importance: Importance.defaultImportance,
+        priority: Priority.defaultPriority,
+        playSound: true,
       );
 
   /// 알림 본문을 탭하면 payload와 함께 호출된다.
@@ -146,51 +123,18 @@ class LoopNotifications {
       _routeResponse(response);
 
   static Future<void> _routeResponse(NotificationResponse response) async {
-    final payload = LoopPayload.decode(response.payload);
-    if (payload.logId.isEmpty) return;
+    final payload = response.payload;
+    if (payload == null || payload.isEmpty) return;
     if (response.notificationResponseType ==
         NotificationResponseType.selectedNotificationAction) {
-      if (response.actionId == 'snooze') {
-        // [10분 후 다시] — 앱이 죽어도 DB를 열어 예약을 미루고 다시 건다.
-        await _snooze(payload);
-        return;
-      }
       // `확인` — Android가(cancelNotification) 알림을 닫고, 여기선 소화 처리.
       // 반복 알림의 payload는 규칙 id라 markLoopDone이 조용히 무시된다 — 안전.
-      onConfirmLog?.call(payload.logId);
+      onConfirmLog?.call(payload);
     } else {
       // 탭한 알림의 로그를 기억 — 리스너가 없으면(콜드스타트) 나중에 소비.
-      pendingOpenLog = payload.logId;
-      onOpenLog?.call(payload.logId);
+      pendingOpenLog = payload;
+      onOpenLog?.call(payload);
     }
-  }
-
-  /// 스누즈 — 루프를 [snoozeAfter] 뒤로 미루고 알람을 다시 건다.
-  /// 백그라운드 아이솔레이트에서도 돌 수 있어서 payload의 경로로 DB를 연다.
-  static Future<void> _snooze(LoopPayload payload) async {
-    final at = DateTime.now().add(snoozeAfter);
-    var body = _l10n.notifFallbackBody;
-    if (payload.dbDir != null) {
-      try {
-        final db = LoopDb(Directory(payload.dbDir!))..open();
-        try {
-          final log = db.byId(payload.logId);
-          body = (log?.content.trim().isEmpty ?? true) ? body : log!.content;
-          db.updateLoopAt(payload.logId, at, alarm: true);
-        } finally {
-          db.close();
-        }
-      } catch (_) {
-        // DB를 못 열어도 알람 자체는 다시 걸어준다 — DB는 다음 실행 때 정산.
-      }
-    }
-    await scheduleLoop(
-      logId: payload.logId,
-      body: body,
-      at: at,
-      alarm: true,
-      dbDir: payload.dbDir,
-    );
   }
 
   /// logId(String) → 알림 id(int). 같은 로그는 항상 같은 알림 id.
@@ -203,20 +147,37 @@ class LoopNotifications {
   static int repeatIdFor(String ruleId, int slot) =>
       (ruleId.hashCode & 0x00FFFFFF) * _repeatSlots + (slot & 0x0F);
 
+  /// 루프 예약 — [alarm]이면 네이티브 전체화면 알람, 아니면 일반 알림.
   static Future<void> scheduleLoop({
     required String logId,
     required String body,
     required DateTime at,
     bool alarm = false,
-    String? dbDir,
-  }) => _schedule(
-    id: idFor(logId),
-    title: 'Loop ↩',
-    body: body,
-    payload: LoopPayload(logId: logId, dbDir: dbDir).encode(),
-    at: at,
-    alarm: alarm,
-  );
+    String? title,
+  }) async {
+    // 과거 시각은 예약하지 않는다 — 과거로 예약하면 즉시 발화한다.
+    // 지난 루프는 settleExpiredLoops가 발화 포크로 소화하므로 여기선 침묵.
+    if (!at.isAfter(DateTime.now())) return;
+    if (alarm) {
+      try {
+        await _nativeCh.invokeMethod('scheduleNativeAlarm', {
+          'logId': logId,
+          'atMs': at.millisecondsSinceEpoch,
+          'content': body,
+        });
+        return;
+      } catch (_) {
+        // 네이티브 경로 실패(안드로이드 외 환경 등) — 알림으로라도 울린다.
+      }
+    }
+    await _schedule(
+      id: idFor(logId),
+      title: title ?? 'Loop ↩',
+      body: body,
+      payload: logId,
+      at: at,
+    );
+  }
 
   /// 반복 규칙의 다가오는 발화를 배치로 예약한다.
   /// 앱을 켤 때마다 [LoopDb.settleRepeats] 후 다시 맞춰준다 —
@@ -241,7 +202,6 @@ class LoopNotifications {
         body: preview,
         payload: ruleId,
         at: t,
-        alarm: false,
       );
       t = nextAfter(t);
     }
@@ -253,16 +213,57 @@ class LoopNotifications {
     }
   }
 
+  // ── 그때의 나 (docs/growth-ideas.md) ────────────────────────
+
+  /// 그때의 나 알림 슬롯 — 오늘부터 며칠 치를 예약할지.
+  static const onThisDaySlots = 8;
+
+  /// 그날의 알림 id — 날짜별로 고정이라 다시 맞출 때 덮어쓴다.
+  static int onThisDayIdFor(DateTime day) =>
+      (day.year * 10000 + day.month * 100 + day.day) & 0x3FFFFFFF;
+
+  /// 그때의 나 아침 알림 payload — 로그가 아니라 기록 흐름 페이지를 연다.
+  static const statsPayload = 'stats';
+
+  /// 그때의 나 아침 알림을 [items]로 다시 맞춘다. 하루에 알림 하나 —
+  /// 탭하면 기록 흐름 페이지(그때의 나 섹션 포함)가 열린다.
+  /// (2026-11-01: 알림 여러 개 → 하나 + 전체화면 페이지로 전환)
+  static Future<void> scheduleOnThisDay(
+    List<({DateTime at, String body})> items,
+  ) async {
+    await cancelOnThisDay();
+    for (final item in items) {
+      if (!item.at.isAfter(DateTime.now())) continue;
+      await _schedule(
+        id: onThisDayIdFor(item.at),
+        title: '📮 ${_l10n.onThisDayTitle}',
+        body: item.body,
+        payload: statsPayload,
+        at: item.at,
+        android: _onThisDayDetails(),
+      );
+    }
+  }
+
+  /// 예약된 그때의 나 전부 취소 — 같은 날짜 id 공간을 다시 맞춘다.
+  static Future<void> cancelOnThisDay() async {
+    final now = DateTime.now();
+    for (var i = 0; i < onThisDaySlots; i++) {
+      final d = DateTime(now.year, now.month, now.day + i);
+      await _plugin.cancel(id: onThisDayIdFor(d));
+    }
+  }
+
   static Future<void> _schedule({
     required int id,
     required String title,
     required String body,
     required String? payload,
     required DateTime at,
-    required bool alarm,
+    AndroidNotificationDetails? android,
   }) async {
     final details = NotificationDetails(
-      android: _androidDetails(alarm: alarm),
+      android: android ?? _androidDetails(),
       macOS: const DarwinNotificationDetails(presentSound: true),
     );
     try {
@@ -290,5 +291,39 @@ class LoopNotifications {
     }
   }
 
-  static Future<void> cancel(String logId) => _plugin.cancel(id: idFor(logId));
+  /// 예약 취소 — 일반 알림과 네이티브 알람을 모두 치운다.
+  /// (알림이 없는 id를 cancel해도 조용히 무시된다)
+  static Future<void> cancel(String logId) async {
+    await _plugin.cancel(id: idFor(logId));
+    try {
+      await _nativeCh.invokeMethod('cancelNativeAlarm', {'logId': logId});
+    } catch (_) {
+      // 안드로이드 외 환경 — 무시.
+    }
+  }
+
+  /// 네이티브 스누즈 기록을 DB에 반영할 수 있게 꺼낸다 (logId → 새 시각 ms).
+  /// 꺼내면 네이티브 쪽 기록은 치워진다. 앱 시작 때 한 번 호출.
+  static Future<Map<String, int>> consumePendingSnoozes() async {
+    try {
+      final raw = await _nativeCh.invokeMethod<Map<Object?, Object?>>(
+        'consumePendingSnoozes',
+      );
+      return {
+        for (final e in (raw ?? {}).entries)
+          e.key as String: (e.value as num).toInt(),
+      };
+    } catch (_) {
+      return const {};
+    }
+  }
+
+  /// 알람 화면 [확인]로 열어달라는 대상 로그. 없으면 null. (꺼내면 소비됨)
+  static Future<String?> consumeAlarmOpen() async {
+    try {
+      return await _nativeCh.invokeMethod<String?>('consumeAlarmOpen');
+    } catch (_) {
+      return null;
+    }
+  }
 }

@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "2안 · E2EE 릴레이 — 서버는 잠긴 우편함",
+    "output": "docs/diagrams/share-e2ee-relay.sequence.html",
+    "viewBox": [1040, 560],
+    "column_fit": "spread",
+    "quality_profile": "showcase",
+    "views": [
+      {
+        "id": "key-handshake",
+        "label": "열쇠 교환",
+        "focus": ["deviceA", "keyshare", "deviceB"],
+        "note": "열쇠는 데이터 통로와 완전히 다른 길로 간다"
+      },
+      {
+        "id": "encrypted-hop",
+        "label": "암호문 전송",
+        "focus": ["deviceA", "relay", "deviceB"],
+        "note": "인터넷을 거치지만 서버가 보는 건 암호문뿐"
+      }
+    ]
+  },
+  "participants": [
+    { "id": "deviceA", "type": "frontend", "label": "내 기기", "sublabel": "Loop · 암호화는 여기서" },
+    { "id": "keyshare", "type": "external", "label": "QR · 링크(#)", "sublabel": "열쇠 전달 수단" },
+    { "id": "relay", "type": "backend", "label": "릴레이 서버", "sublabel": "암호문만 저장하는 우편함" },
+    { "id": "deviceB", "type": "frontend", "label": "친구 기기", "sublabel": "Loop · 복호화는 여기서" }
+  ],
+  "segments": [
+    { "from": 150, "to": 200, "label": "열쇠 교환 (QR·링크#)" },
+    { "from": 205, "to": 310, "label": "데이터 전송 (인터넷 — 암호문만)" }
+  ],
+  "messages": [
+    { "id": "key-encode", "from": "deviceA", "to": "keyshare", "y": 160, "label": "열쇠를 생성해 QR·링크#에 담는다", "variant": "security" },
+    { "id": "key-deliver", "from": "keyshare", "to": "deviceB", "y": 185, "label": "열쇠만 따로 전달 — QR 스캔 또는 메신저 링크", "variant": "security", "note": "링크의 # 뒤 조각은 서버로 전송 자체가 안 된다" },
+    { "id": "ciphertext-up", "from": "deviceA", "to": "relay", "y": 215, "label": "폰 안에서 암호화한 암호문만 업로드", "variant": "emphasis", "note": "서버에는 열쇠가 없어 내용 해독 불가" },
+    { "id": "ciphertext-down", "from": "deviceB", "to": "relay", "y": 245, "label": "암호문 다운로드", "variant": "default" },
+    { "id": "ciphertext-relay", "from": "relay", "to": "deviceB", "y": 280, "label": "암호문 그대로 전달 — 내용은 모른다", "variant": "return", "note": "배달부는 잠긴 편지를 전달할 뿐 읽을 수 없다" }
+  ],
+  "activations": [
+    { "participant": "deviceA", "from": 160, "to": 220, "type": "frontend" },
+    { "participant": "keyshare", "from": 165, "to": 190, "type": "external" },
+    { "participant": "relay", "from": 210, "to": 285, "type": "backend" },
+    { "participant": "deviceB", "from": 180, "to": 285, "type": "frontend" }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "E2EE란?",
+      "items": [
+        "End-to-End Encryption — 암호화·복호화가 두 기기('끝')에서만 일어난다",
+        "서버는 열쇠가 없어 잠긴 편지만 배달 — 해킹돼도 내용 유출 없음",
+        "로컬 퍼스트 유지: 서버는 저장고일 뿐, 데이터 주인은 기기"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "장점",
+      "items": [
+        "떨어져 있어도 공유 가능 — 시간·거리 제약 없음",
+        "서버 장애·해킹에도 암호문만 노출되어 안전",
+        "열쇠 교환(QR·링크#)은 이미 갖고 있는 수단으로 가능"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "비용·한계",
+      "items": [
+        "서버 운영 비용 + 스토어 심사에서 서버 정책 설명 필요",
+        "열쇠를 잃어버리면 복구 불가",
+        "페어링·키교환 UX·동기화까지 구현 스코프가 크다"
+      ]
+    }
+  ]
+}

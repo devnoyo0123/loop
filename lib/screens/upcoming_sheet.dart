@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../data/loop_db.dart';
 import '../design/tokens.dart';
 import '../l10n/generated/app_localizations.dart';
-import '../models/repeat_rule.dart';
+import '../utils/upcoming.dart';
 import '../utils/time_format.dart';
 
 /// 다가오는 루프 미리보기 항목 하나.
@@ -60,14 +60,19 @@ class UpcomingSheet {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(LoopSpacing.m,
-                        LoopSpacing.l, LoopSpacing.m, LoopSpacing.s),
+                    padding: const EdgeInsets.fromLTRB(
+                      LoopSpacing.m,
+                      LoopSpacing.l,
+                      LoopSpacing.m,
+                      LoopSpacing.s,
+                    ),
                     child: Text(
                       l10n.upcomingTitle,
                       style: const TextStyle(
-                          color: LoopColors.text,
-                          fontSize: 17,
-                          fontWeight: FontWeight.w700),
+                        color: LoopColors.text,
+                        fontSize: 17,
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
                   ),
                   Flexible(
@@ -78,21 +83,20 @@ class UpcomingSheet {
                               l10n.upcomingEmpty,
                               textAlign: TextAlign.center,
                               style: const TextStyle(
-                                  color: LoopColors.textDim,
-                                  fontSize: 14,
-                                  height: 1.6),
+                                color: LoopColors.textDim,
+                                fontSize: 14,
+                                height: 1.6,
+                              ),
                             ),
                           )
                         : ListView.builder(
                             shrinkWrap: true,
                             padding: const EdgeInsets.only(
-                                bottom: LoopSpacing.m),
-                            itemCount: items.length,
-                            itemBuilder: (context, i) => _tile(
-                              sheetContext,
-                              items[i],
-                              l10n,
+                              bottom: LoopSpacing.m,
                             ),
+                            itemCount: items.length,
+                            itemBuilder: (context, i) =>
+                                _tile(sheetContext, items[i], l10n),
                           ),
                   ),
                 ],
@@ -103,60 +107,23 @@ class UpcomingSheet {
       );
 
   /// [now]부터 7일 창의 발화를 시간순으로 모은다. (테스트를 위해 now 주입)
+  /// 계산은 [upcomingFires] — MCP `upcoming_loops`와 같은 결과를 보장한다.
   static List<UpcomingLoopItem> itemsFor(
     LoopDb db,
     AppLocalizations l10n, {
     DateTime? now,
   }) {
     final n = now ?? DateTime.now();
-    final to = n.add(window);
-    final items = <UpcomingLoopItem>[];
-
-    for (final log in db.pendingLoopsBetween(n, to)) {
-      items.add(UpcomingLoopItem(
-        at: log.loopAt!,
-        logId: log.id,
-        title: log.content.trim(),
-        ruleLabel: l10n.loopModeOnce,
-        repeated: false,
-      ));
-    }
-
-    for (final rule in db.activeRepeatRules()) {
-      final title = db.byId(rule.sourceLogId)?.content.trim() ?? '';
-      final label = rule.label(l10n);
-      switch (rule.kind) {
-        case RepeatKind.daily:
-        case RepeatKind.weekday:
-          // 하루 한 번 규칙 — 창 안의 매 발화가 각각 한 줄.
-          var t = rule.nextFireAt;
-          while (!t.isAfter(to)) {
-            items.add(UpcomingLoopItem(
-              at: t,
-              logId: rule.sourceLogId,
-              title: title,
-              ruleLabel: label,
-              repeated: true,
-            ));
-            t = rule.nextFireAfter(t);
-          }
-        case RepeatKind.minutes:
-        case RepeatKind.hours:
-          // 고빈도 반복 — 다음 발화만. 창 안이 아니면 아예 안 보인다.
-          if (!rule.nextFireAt.isAfter(to)) {
-            items.add(UpcomingLoopItem(
-              at: rule.nextFireAt,
-              logId: rule.sourceLogId,
-              title: title,
-              ruleLabel: label,
-              repeated: true,
-            ));
-          }
-      }
-    }
-
-    items.sort((a, b) => a.at.compareTo(b.at));
-    return items;
+    return [
+      for (final f in upcomingFires(db, from: n, to: n.add(window)))
+        UpcomingLoopItem(
+          at: f.at,
+          logId: f.logId,
+          title: (f.log ?? db.byId(f.logId))?.content.trim() ?? '',
+          ruleLabel: f.rule?.label(l10n) ?? l10n.loopModeOnce,
+          repeated: f.repeated,
+        ),
+    ];
   }
 
   /// 검색 결과 타일과 같은 문법의 행 — 시각+요일 / 원본 내용 / 규칙 라벨.
@@ -166,14 +133,16 @@ class UpcomingSheet {
     AppLocalizations l10n,
   ) {
     // narrowWeekdays는 일요일 시작 — DateTime.weekday(월=1…일=7)를 맞춘다.
-    final weekday =
-        MaterialLocalizations.of(sheetContext).narrowWeekdays[item.at.weekday % 7];
+    final weekday = MaterialLocalizations.of(sheetContext)
+        .narrowWeekdays[item.at.weekday % 7];
     return GestureDetector(
       onTap: () => Navigator.pop(sheetContext, item.logId),
       behavior: HitTestBehavior.opaque,
       child: Container(
         margin: const EdgeInsets.symmetric(
-            horizontal: LoopSpacing.m, vertical: LoopSpacing.xs),
+          horizontal: LoopSpacing.m,
+          vertical: LoopSpacing.xs,
+        ),
         padding: const EdgeInsets.all(LoopSpacing.m),
         decoration: BoxDecoration(
           color: LoopColors.surface,
@@ -202,9 +171,10 @@ class UpcomingSheet {
                 Text(
                   item.ruleLabel,
                   style: const TextStyle(
-                      color: LoopColors.mint,
-                      fontSize: 11,
-                      fontWeight: FontWeight.w600),
+                    color: LoopColors.mint,
+                    fontSize: 11,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               ],
             ),
@@ -214,7 +184,10 @@ class UpcomingSheet {
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: const TextStyle(
-                  color: LoopColors.text, fontSize: 14, height: 1.4),
+                color: LoopColors.text,
+                fontSize: 14,
+                height: 1.4,
+              ),
             ),
           ],
         ),

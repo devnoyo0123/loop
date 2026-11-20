@@ -19,6 +19,7 @@ class LogEntry {
     this.temperatureC,
     this.repeatRuleId,
     this.loopCount = 0,
+    this.authorId,
   });
 
   final String id;
@@ -73,6 +74,10 @@ class LogEntry {
   /// 망각곡선 다음 간격을 고르는 기준 — 원본과 발화 포크가 함께 올라간다.
   final int loopCount;
 
+  /// 이 기록을 쓴 사람의 기기 식별자. null이면 내 기기에서 쓴 것 —
+  /// 공유받은 기록은 보낸 이의 peers.id가 들어온다. (share-design.md v11)
+  final String? authorId;
+
   bool get isFork => parentId != null;
 
   bool get isRepeatFork => repeatRuleId != null;
@@ -106,6 +111,7 @@ class LogEntry {
     temperatureC: temperatureC,
     repeatRuleId: repeatRuleId,
     loopCount: loopCount,
+    authorId: authorId,
   );
 }
 

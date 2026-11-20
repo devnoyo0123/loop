@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- R8 resource shrinking keep list (2026-11-11).
+     flutter_local_notifications looks up the notification icon by name from
+     Dart ('@mipmap/ic_launcher'), so the shrinker cannot see the reference. -->
+<resources xmlns:tools="http://schemas.android.com/tools"
+    tools:keep="@mipmap/ic_launcher,@drawable/*,@layout/*" />

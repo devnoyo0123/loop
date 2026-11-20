@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "Loop 알람 발화 — 기존 방식 vs 현재 방식",
+    "output": "loop-alarm-old-vs-new.html",
+    "viewBox": [1080, 480],
+    "column_fit": "spread",
+    "quality_profile": "showcase",
+    "views": [
+      { "id": "old-path", "label": "기존: 직접 실행", "focus": ["mgr", "rx", "act", "user"], "note": "수신자가 startActivity로 액티비티를 곧장 띄우던 구조" },
+      { "id": "new-path", "label": "현재: FSI 알림", "focus": ["mgr", "rx", "nms", "act", "user"], "note": "알림에 전체화면 인텐트를 심어 시스템이 화면을 띄우는 구조" },
+      { "id": "open-gaps", "label": "남은 한계", "focus": ["nms", "user"], "note": "DND 뮤트와 One UI Edge lighting 전환" }
+    ]
+  },
+  "participants": [
+    { "id": "mgr", "type": "external", "label": "AlarmManager", "sublabel": "setAlarmClock" },
+    { "id": "rx", "type": "backend", "label": "AlarmReceiver", "sublabel": "앱 수신자" },
+    { "id": "nms", "type": "external", "label": "알림 서비스·SystemUI", "sublabel": "FSI 판정" },
+    { "id": "act", "type": "frontend", "label": "AlarmActivity", "sublabel": "전체화면 UI" },
+    { "id": "user", "type": "external", "label": "사용자", "sublabel": "확인·미루기" }
+  ],
+  "segments": [
+    { "from": 150, "to": 244, "label": "기존 — 수신자가 액티비티 직접 실행 (2026-10 이전)" },
+    { "from": 244, "to": 435, "label": "현재 — 전체화면 인텐트(FSI) 알림 (1.0.12~)" }
+  ],
+  "messages": [
+    { "from": "mgr", "to": "rx", "y": 186, "label": "예약 시각 방송 (ALARM_FIRE)", "variant": "emphasis" },
+    { "from": "rx", "to": "act", "y": 224, "label": "startActivity() 직접 실행", "variant": "emphasis", "note": "Android 10+ 백그라운드 실행 제한 — 다른 앱 사용 중 차단 → 무소식 버그" },
+    { "from": "mgr", "to": "rx", "y": 282, "label": "예약 시각 방송 (ALARM_FIRE)", "variant": "emphasis", "note": "재전달 가드: logId + 예약 시각(atMs)" },
+    { "from": "rx", "to": "nms", "y": 320, "label": "FSI 알림 게시", "variant": "emphasis", "note": "INSISTENT 반복 알람음(USAGE_ALARM) · [확인]/[10분 후 다시]" },
+    { "from": "nms", "to": "act", "y": 358, "label": "화면 꺼짐·잠금 → 전체화면 실행", "variant": "emphasis", "note": "[확인] 시 해당 루프로 이동 — 시계 앱 정석 경로" },
+    { "from": "nms", "to": "user", "y": 396, "label": "사용 중 → 헤드업 배너 + 알람음", "variant": "default", "note": "삼성 One UI는 Edge lighting 헤드업으로 대체 가능" }
+  ],
+  "activations": [
+    { "participant": "rx", "from": 180, "to": 344, "type": "backend" },
+    { "participant": "nms", "from": 314, "to": 424, "type": "external" }
+  ],
+  "cards": [
+    { "dot": "cyan", "title": "바뀐 핵심", "items": [
+      "발화 경로: 액티비티 직접 실행 → 시스템 FSI 알림",
+      "소리 주체: 액티비티 → 알림 채널(INSISTENT 반복)"
+    ] },
+    { "dot": "emerald", "title": "공통으로 유지되는 것", "items": [
+      "setAlarmClock 정시성 + logId+atMs 재전달 가드",
+      "[확인] → 루프 이동 · 미루기 → 10분 재예약"
+    ] },
+    { "dot": "orange", "title": "확인된 한계 (개선 예정)", "items": [
+      "DND 중 채널 소리 뮤트 — 매일 22:00~07:00 재현",
+      "One UI Edge lighting 대체 → STREAM_ALARM 재생 예정"
+    ] }
+  ]
+}

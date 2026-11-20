@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    width:390px; height:844px; background:#0B0D12; overflow:hidden; position:relative;
+    font-family:-apple-system,'Apple SD Gothic Neo','Noto Sans KR',sans-serif; color:#E8EAF2;
+  }
+  .ribbon { position:absolute; top:-48px; right:-48px; width:150px; height:150px;
+    transform:rotate(45deg); z-index:9;
+    background:repeating-linear-gradient(90deg,#7E1E2B 0 16px,#F5F0EA 16px 30px,#7E1E2B 30px 52px); }
+  .bg { position:absolute; inset:0; padding:60px 16px 0; filter:brightness(.45); }
+  .bg h1 { font-size:28px; font-weight:800; margin-bottom:20px; }
+  .card { background:#12151D; border:1px solid #262B3A; border-radius:14px; padding:14px; margin-bottom:12px; }
+  .card .t { font-size:14px; line-height:1.5; }
+  .card .m { font-size:12px; color:#8B90A0; margin-top:6px; }
+  .dim { position:absolute; inset:0; background:rgba(4,5,9,.45); }
+  .sheet { position:absolute; left:0; right:0; bottom:0; background:#12151D;
+    border-radius:20px 20px 0 0; padding:22px 20px 18px; box-shadow:0 -8px 40px rgba(0,0,0,.5); }
+  .from { font-size:12.5px; color:#7DE2C3; margin-bottom:6px; }
+  .title { font-size:19px; font-weight:700; }
+  .origin { background:#1A1E2A; border-radius:12px; padding:13px 14px; margin:14px 0 10px; }
+  .origin .t { font-size:13.5px; line-height:1.5; }
+  .origin .m { font-size:12px; color:#8B90A0; margin-top:5px; }
+  .badge { display:inline-flex; align-items:center; gap:5px; font-size:11.5px; color:#7DE2C3;
+    background:rgba(125,226,195,.08); border:1px solid rgba(125,226,195,.25); border-radius:8px; padding:4px 8px; }
+  .q { font-size:14px; font-weight:600; margin:18px 0 10px; }
+  .choice { background:#1A1E2A; border:1.5px solid transparent; border-radius:14px; padding:14px 15px; margin-bottom:10px; }
+  .choice .h { font-size:15px; font-weight:700; display:flex; align-items:center; gap:8px; }
+  .choice .h .i { font-size:14px; }
+  .choice .d { font-size:12.5px; color:#8B90A0; margin-top:5px; line-height:1.5; }
+  .choice.sel { border-color:#A78BFA; }
+  .choice.sel .h { color:#A78BFA; }
+  .choice.sel .d { color:#B9AEE6; }
+  .btn { display:block; width:100%; border:none; border-radius:28px; background:#A78BFA; color:#0B0D12;
+    font-size:16px; font-weight:700; padding:16px 0; text-align:center; margin-top:10px; font-family:inherit; }
+  .sub { display:block; width:100%; text-align:center; background:none; border:none; color:#8B90A0;
+    font-size:13.5px; padding:13px 0 2px; font-family:inherit; }
+</style>
+</head>
+<body>
+  <div class="ribbon"></div>
+  <div class="bg">
+    <h1>Loop</h1>
+    <div class="card">
+      <div class="t">새벽에 떠오른 생각 — 온보딩을 스타터 카드로 시작</div>
+      <div class="m">10.12 08:30</div>
+    </div>
+    <div class="card">
+      <div class="t">아침에 다시 보니 정리됨</div>
+      <div class="m">10.13 09:10 · ↩ 10분 루프</div>
+    </div>
+  </div>
+  <div class="dim"></div>
+
+  <div class="sheet">
+    <div class="from">민수님이 보냈어요 · 가까운 기기에서 직접</div>
+    <div class="title">사슬 가져오기</div>
+    <div class="origin">
+      <div class="t">물 하루 8잔 마시기 — 3주째 도전 중</div>
+      <div class="m">기록 52개 · 사진 3장 · 동영상 1개 · 반복 48회</div>
+    </div>
+    <div class="badge">🔒 위치 정보 없이 전송됨</div>
+
+    <div class="q">어떻게 가져올까요?</div>
+    <div class="choice">
+      <div class="h"><span class="i">📥</span> 이 기록만 가져오기</div>
+      <div class="d">사슬이 통째로 타임라인에 붙어요. 알림은 울리지 않아요.</div>
+    </div>
+    <div class="choice sel">
+      <div class="h"><span class="i">🔁</span> 살아있는 루프로 이어받기</div>
+      <div class="d">2시간마다 반복이 내 알림으로 다시 울려요. 지금부터 내 시간표로 맞춰요.</div>
+    </div>
+
+    <button class="btn">가져오기</button>
+    <button class="sub">거절</button>
+  </div>
+</body>
+</html>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 알람 화면 세로 모드 크기 -->
+<resources>
+    <dimen name="alarm_date_top">120dp</dimen>
+    <dimen name="alarm_time_size">72sp</dimen>
+    <dimen name="alarm_label_top">24dp</dimen>
+    <dimen name="alarm_content_size">20sp</dimen>
+    <dimen name="alarm_content_side">32dp</dimen>
+    <dimen name="alarm_buttons_bottom">56dp</dimen>
+</resources>

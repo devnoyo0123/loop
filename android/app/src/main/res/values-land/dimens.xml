@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 알람 화면 가로 모드(폴드 커버 눕힘 등) — 버튼이 항상 화면 안에
+     들어오도록 콘텐츠를 작게. (2026-11-01 버튼 밀림 버그 수정) -->
+<resources>
+    <dimen name="alarm_date_top">8dp</dimen>
+    <dimen name="alarm_time_size">44sp</dimen>
+    <dimen name="alarm_label_top">12dp</dimen>
+    <dimen name="alarm_content_size">14sp</dimen>
+    <dimen name="alarm_content_side">40dp</dimen>
+    <dimen name="alarm_buttons_bottom">20dp</dimen>
+</resources>

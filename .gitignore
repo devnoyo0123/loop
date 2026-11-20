@@ -31,6 +31,7 @@ migrate_working_dir/
 .pub-cache/
 .pub/
 /build/
+/android/build/
 /coverage/
 
 # Symbolication related
@@ -49,6 +50,12 @@ app.*.map.json
 
 # 비공개 작업 디렉토리 — 릴리스 키·서명 정보·비즈니스 문서. 절대 커밋 금지.
 /work/
+
+# 에이전트·에디터 로컬 상태
+.agents/
+.omc/
+.zcode/
+.zcodeignore
 
 # 로컬 로그
 flutter_*.log

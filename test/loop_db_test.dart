@@ -86,6 +86,40 @@ void main() {
     expect(second.first.createdAt.isBefore(first.last.createdAt), isTrue);
   });
 
+  test('mineOnly — 공유받은 기록(author_id)을 빼고 내 기록만', () {
+    db.insert(entry('mine1', '내 기록', DateTime(2026, 8, 31, 9, 0)));
+    db.insert(
+      LogEntry(
+        id: 'recv1',
+        content: '공유받은 기록',
+        createdAt: DateTime(2026, 8, 31, 10, 0),
+        originalCreatedAt: DateTime(2026, 8, 31, 10, 0),
+        authorId: 'peer-1',
+      ),
+    );
+    // 공유받은 사슬에 내가 이어 쓴 포크도 author_id가 null — 내 기록.
+    db.insert(
+      LogEntry(
+        id: 'fork1',
+        content: '남의 사슬에 내가 쓴 포크',
+        createdAt: DateTime(2026, 8, 31, 11, 0),
+        originalCreatedAt: DateTime(2026, 8, 31, 11, 0),
+        rootId: 'recv1',
+        depth: 1,
+        path: 'recv1/fork1',
+      ),
+    );
+
+    expect(db.window().map((l) => l.id), ['fork1', 'recv1', 'mine1']);
+    expect(
+      db.window(mineOnly: true).map((l) => l.id),
+      ['fork1', 'mine1'],
+    );
+    // 페이징과 조합해도 필터가 유지된다.
+    final page = db.window(mineOnly: true, limit: 1);
+    expect(page.single.id, 'fork1');
+  });
+
   test('시간 수정 시 시계열 위치 재정렬 + 원본 시각 보존', () {
     db.insert(entry('a1', '첫', DateTime(2026, 8, 31, 9, 0)));
     db.insert(entry('a2', '둘', DateTime(2026, 8, 31, 12, 0)));
@@ -283,14 +317,15 @@ void main() {
   });
 
   test('pendingOneShotLoops — 미래 단발만, 소화·과거분 제외 (복원 재예약용)', () {
-    db.insert(entry('past', '지난 루프', DateTime(2026, 10, 1, 9),
-        loopAt: DateTime(2026, 10, 10, 9))); // 과거 — settle 대상, 여기선 제외
-    db.insert(entry('future1', '내일 루프', DateTime(2026, 10, 15, 9),
-        loopAt: DateTime(2026, 10, 18, 9)));
-    db.insert(entry('future2', '다음 주 루프', DateTime(2026, 10, 15, 10),
-        loopAt: DateTime(2026, 10, 22, 9)));
-    db.insert(entry('done', '이미 소화한 미래 루프', DateTime(2026, 10, 15, 11),
-        loopAt: DateTime(2026, 10, 20, 9), loopDone: true));
+    final now = DateTime.now();
+    db.insert(entry('past', '지난 루프', now.subtract(const Duration(days: 5)),
+        loopAt: now.subtract(const Duration(days: 1)))); // 과거 — settle 대상, 여기선 제외
+    db.insert(entry('future1', '3일 뒤 루프', now,
+        loopAt: now.add(const Duration(days: 3))));
+    db.insert(entry('future2', '일주일 루프', now.add(const Duration(hours: 1)),
+        loopAt: now.add(const Duration(days: 7))));
+    db.insert(entry('done', '이미 소화한 미래 루프', now.add(const Duration(hours: 2)),
+        loopAt: now.add(const Duration(days: 5)), loopDone: true));
 
     final pending = db.pendingOneShotLoops();
     expect(pending.map((e) => e.id).toList(), ['future1', 'future2']);
@@ -309,5 +344,84 @@ void main() {
     final again = LoopDb(tmp)..open();
     expect(again.getSetting('browser_package'), 'org.mozilla.firefox');
     again.close();
+  });
+  group('MCP 검색 확장 (mcp-design.md §9.2)', () {
+    void seedDays() {
+      db.insert(entry('d1', '카페 라떼 기록', DateTime(2026, 10, 1, 9)));
+      db.insert(entry('d2', '카페 라떼 또', DateTime(2026, 10, 2, 23, 59)));
+      db.insert(entry('d3', '카페 라떼 셋째', DateTime(2026, 10, 3, 0, 0)));
+    }
+
+    test('searchDetailed from/to — FTS 경로(3자 이상), to는 그날 끝까지 포함', () {
+      seedDays();
+      List<String> ids({DateTime? from, DateTime? to}) => [
+        for (final r in db.searchDetailed('카페 라떼', from: from, to: to))
+          r.log.id,
+      ];
+      expect(ids(), ['d3', 'd2', 'd1']);
+      expect(ids(from: DateTime(2026, 10, 2)), ['d3', 'd2']);
+      expect(ids(to: DateTime(2026, 10, 2)), ['d2', 'd1']);
+      expect(
+        ids(from: DateTime(2026, 10, 2), to: DateTime(2026, 10, 2)),
+        ['d2'],
+      );
+      // 시각이 섞여 들어와도 날짜 단위로 본다
+      expect(
+        ids(from: DateTime(2026, 10, 2, 15), to: DateTime(2026, 10, 2, 1)),
+        ['d2'],
+      );
+    });
+
+    test('searchDetailed from/to — LIKE 경로(2자 이하)도 같은 범위', () {
+      seedDays();
+      List<String> ids({DateTime? from, DateTime? to}) => [
+        for (final r in db.searchDetailed('카페', from: from, to: to)) r.log.id,
+      ];
+      expect(ids(), ['d3', 'd2', 'd1']);
+      expect(ids(from: DateTime(2026, 10, 3)), ['d3']);
+      expect(ids(to: DateTime(2026, 10, 1)), ['d1']);
+      expect(ids(from: DateTime(2026, 10, 4)), isEmpty);
+    });
+
+    test('chainLogs — 사슬 안 아무 id로 원본+후속 전부 시간순', () {
+      db.insert(entry('r', '원본', DateTime(2026, 10, 1, 9)));
+      db.insert(entry('c1', '후속1', DateTime(2026, 10, 2, 9),
+          parentId: 'r', rootId: 'r', depth: 1, path: 'r/c1'));
+      db.insert(entry('c2', '후속2', DateTime(2026, 10, 3, 9),
+          parentId: 'c1', rootId: 'r', depth: 2, path: 'r/c1/c2'));
+      db.insert(entry('other', '다른 사슬', DateTime(2026, 10, 2, 10)));
+      // 접두사만 같은 다른 원본 id는 섞이지 않는다
+      db.insert(entry('rx', '비슷한 id', DateTime(2026, 10, 2, 11)));
+
+      for (final id in ['r', 'c1', 'c2']) {
+        expect(db.chainLogs(id).map((e) => e.id).toList(), ['r', 'c1', 'c2']);
+      }
+      expect(db.chainLogs('other').map((e) => e.id).toList(), ['other']);
+      expect(db.chainLogs('nope'), isEmpty);
+    });
+
+    test('mediaCounts — 사진·동영상 개수, 없는 로그는 결과에 없음', () {
+      db.insert(entry('m1', '사진 둘', DateTime(2026, 10, 1)));
+      db.insert(entry('m2', '영상 하나', DateTime(2026, 10, 2)));
+      db.insert(entry('m3', '없음', DateTime(2026, 10, 3)));
+      db.insertImages('m1', [
+        Uint8List.fromList([1, 2]),
+        Uint8List.fromList([3]),
+      ]);
+      db.insertVideo('m2', 'v.mp4', 10);
+      db.insertImages('m2', [Uint8List.fromList([9])]);
+
+      final counts = db.mediaCounts(['m1', 'm2', 'm3']);
+      expect(counts['m1'], (images: 2, videos: 0));
+      expect(counts['m2'], (images: 1, videos: 1));
+      expect(counts.containsKey('m3'), isFalse);
+      expect(db.mediaCounts(const []), isEmpty);
+    });
+
+    test('deleteSetting — 지우면 null', () {
+      db.setSetting('mcp_copied_ip', '192.168.0.2');
+      db.deleteSetting('mcp_copied_ip');
+      expect(db.getSetting('mcp_copied_ip'), isNull);
+    });
   });
 }

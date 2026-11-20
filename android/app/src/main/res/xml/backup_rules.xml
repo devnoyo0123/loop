@@ -2,6 +2,10 @@
 <!-- Android 11 이하 자동 백업 규칙 — DB·설정을 통째로 백업한다. 제외 없음. -->
 <full-backup-content>
     <include domain="file" path="."/>
-    <include domain="database" path="."/>
-    <include domain="sharedpref" path="."/>
+    <!-- 동영상 파일은 용량이 커서 자동 백업(25MB 한도)에서 제외 —
+         수동 .looplog 내보내기가 안전망. (v9, docs/growth-ideas.md) -->
+    <exclude domain="file" path="videos"/>
+    <!-- 이미지 파일도 제외 (v10) — 구글 포토 백업이 1차 안전망, 수동
+         내보내기가 2차. 없는 장은 화면에서 조용히 숨긴다. -->
+    <exclude domain="file" path="images"/>
 </full-backup-content>

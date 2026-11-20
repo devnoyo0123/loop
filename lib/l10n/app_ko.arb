@@ -40,12 +40,14 @@
   "reserveAlarm": "알림 예약",
   "alarmTitle": "⏰ 알림 예약",
   "tapToChangeTime": "탭해서 날짜·시각 바꾸기",
+  "pastTimeHint": "이미 지난 시각이에요 — 다가올 시각으로 다시 골라주세요",
   "in10min": "10분 후",
   "in1hour": "1시간 후",
   "tomorrow": "내일",
   "nextWeek": "다음 주",
   "in1month": "1달 후",
   "loopCurveHint": "망각곡선 {n}번째 복습 · 추천 {interval}",
+  "recommended": "추천",
   "@loopCurveHint": {
     "placeholders": {
       "n": {
@@ -113,6 +115,64 @@
     }
   },
   "presetWeekday": "평일",
+  "presetMonthly": "매달",
+  "presetYearly": "매년",
+  "presetLadder": "사다리",
+  "ruleLadder": "망각곡선 사다리",
+  "curveSteps": "10분 → 1시간 → 오늘 저녁 → 내일 → 1주 → 1개월 · 총 6회",
+  "fireDate": "발화일",
+  "unitMonths": "개월",
+  "unitYears": "년",
+  "ruleMonthly": "매달 {day}일 {time}",
+  "@ruleMonthly": {
+    "placeholders": {
+      "day": {
+        "type": "int"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "ruleEveryMonths": "{n}개월마다 {day}일 {time}",
+  "@ruleEveryMonths": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      },
+      "day": {
+        "type": "int"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "ruleYearly": "매년 {date} {time}",
+  "@ruleYearly": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "ruleEveryYears": "{n}년마다 {date} {time}",
+  "@ruleEveryYears": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      },
+      "date": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
   "upcomingTitle": "다가오는 루프 · 7일",
   "upcomingEmpty": "이번 주엔 예정된 루프가 없어",
   "noContent": "(내용 없음)",
@@ -161,6 +221,8 @@
   "loopViewAction": "루프 보기",
   "loopWriteAction": "작성하기",
   "loopViewBack": "되돌아가기",
+  "mineOnlyTitle": "내 루프만 보기",
+  "mineOnlyBack": "전체 보기",
   "locationCapture": "위치 기록",
   "locationCaptureDesc": "로그에 장소·날씨를 자동으로 함께 기록",
   "loopArm": "Loop 걸기",
@@ -205,8 +267,14 @@
   "snoozeAction": "10분 후 다시",
   "notifAlarmChannelName": "루프 알람",
   "testFire": "발화 체험",
+  "testNotifTitle": "발화 체험 · 알림",
+  "overlayPermTitle": "다른 앱 위에 알람 표시",
+  "overlayPermBody": "다른 앱을 쓰는 중에도 알람이 전체 화면으로 울리려면 \"다른 앱 위에 그리기\" 권한이 필요해요. 다음 화면에서 허용해 주세요.",
+  "overlayPermOpen": "설정 열기",
   "testFireDesc": "5초 뒤 알림 · 20초 뒤 알람이 울려요",
   "testFireSoon": "잠시 후 알림(5초)·알람(20초)이 울려",
+  "fullScreenHint": "알람이 잠금화면 전체로 뜨려면 '알람 및 리마인더' 허용이 필요해.",
+  "openSettings": "설정 열기",
   "detailOriginal": "원본 기록",
   "detailPlace": "장소",
   "detailWeather": "날씨",
@@ -236,5 +304,314 @@
   "notifFallbackBody": "루프 돌아올 시간",
   "notifConfirm": "확인",
   "notifChannelName": "루프",
-  "notifChannelDesc": "돌아온 루프를 알려준다"
+  "notifChannelDesc": "돌아온 루프를 알려준다",
+  "statsTitle": "기록 흐름",
+  "statsEmpty": "기록이 쌓이면 흐름이 보여요.\n+를 눌러 첫 생각을 남겨보세요.",
+  "statsReturnsLine": "생각이 {n}번 다시 돌아왔어요",
+  "@statsReturnsLine": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "statsReturnsZero": "루프를 걸면 생각이 다시 돌아와요",
+  "statsTotalLogs": "쓴 기록",
+  "statsActiveDays": "기록한 날",
+  "statsStreakNow": "지금 연속",
+  "statsStreakBest": "최장 연속",
+  "statsDays": "{n}일",
+  "@statsDays": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "statsHeatmapCaption": "최근 15주",
+  "statsHeatmapLess": "적게",
+  "statsHeatmapMore": "많이",
+  "statsTopChains": "가장 많이 이어진 사슬",
+  "statsChainLinkings": "{n}번 이어짐",
+  "@statsChainLinkings": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "starterQuickTitle": "10분 루프",
+  "starterQuickDesc": "지금 쓰면 10분 뒤 다시 돌아와요",
+  "starterDailyTitle": "매일 밤 한 줄",
+  "starterDailyDesc": "매일 밤 9시에 오늘이 돌아와요",
+  "starterWeekTitle": "일주일 루프",
+  "starterWeekDesc": "지금 쓰고 일주일 뒤에 돌아봐요",
+  "starterInMinutes": "{n}분 뒤",
+  "@starterInMinutes": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "starterEveryNight": "매일 밤 {time}",
+  "@starterEveryNight": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "starterComposeBanner": "↩ {when} 다시 돌아와요",
+  "@starterComposeBanner": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "onThisDayTitle": "그때의 나",
+  "onThisDayWeekAgo": "1주 전 오늘",
+  "onThisDayMonthAgo": "1개월 전 오늘",
+  "onThisDayYearAgo": "1년 전 오늘",
+  "onThisDayChannelName": "그때의 나",
+  "onThisDayChannelDesc": "과거의 기록을 아침마다 다시 들려줘요",
+  "onThisDaySetting": "그때의 나 아침 알림",
+  "onThisDaySettingDesc": "1주·1개월·1년 전 오늘의 기록을 아침 9시에 들려줘요",
+  "shareStats": "공유",
+  "shareCardTagline": "흘러간 생각이 다시 돌아오는 기록",
+  "shareFail": "공유 카드를 만들지 못했어요",
+  "loopAttachHeadLabel": "↩ 사슬의 마지막 기록에서 이어짐",
+  "loopAttachHereLabel": "↩ 이 기록에서 분기됨",
+  "loopAttachHereAction": "여기서부터",
+  "loopAttachHeadAction": "사슬 끝에서",
+  "todayEvening": "오늘 저녁",
+  "dayEndSetting": "하루 마무리 시각",
+  "dayEndSettingDesc": "\"오늘 저녁\" 칩과 매일 밤 루프가 이 시각을 써요",
+  "takePhoto": "사진 촬영",
+  "takeVideo": "동영상 촬영",
+  "videoAttached": "동영상 첨부됨",
+  "videoOpenRow": "동영상 · 탭해서 재생",
+  "videoPlayFail": "동영상을 재생할 앱을 찾을 수 없어요",
+  "videoTooLong": "동영상은 1분까지만 첨부할 수 있어요",
+  "shareChainAction": "Loop 공유",
+  "shareChainTitle": "Loop 공유",
+  "shareCountLogs": "기록",
+  "shareCountPhotos": "사진",
+  "shareCountVideos": "동영상",
+  "shareCountRepeats": "반복",
+  "shareNameLabel": "표시명",
+  "shareNameHint": "상대에게 보이는 이름이에요",
+  "shareStripLocation": "위치 정보 빼고 보내기",
+  "shareStripLocationDesc": "기록에 남은 장소·좌표는 빠져요",
+  "shareStripMedia": "사진·동영상 빼고 보내기",
+  "shareStripMediaDesc": "텍스트 기록만 가요",
+  "shareSendNearby": "가까운 기기로 보내기",
+  "shareExportFile": "파일로 내보내기 (.looplog)",
+  "shareSearching": "옆 기기를 찾고 있어요…",
+  "shareDeviceConnected": "{name} · 연결됨",
+  "@shareDeviceConnected": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "shareSending": "전송 중",
+  "shareHintOffline": "인터넷·서버를 전혀 거치지 않아요. 보통 몇십 초 안에 끝나요.",
+  "shareSent": "보냈어요",
+  "shareSendFail": "전송에 실패했어요",
+  "sharePermTitle": "가까운 기기 권한",
+  "sharePermBody": "옆 기기를 찾으려면 위치·근거리 기기 권한이 필요해요. 데이터는 기기끼리 직접 주고받고 어디에도 남지 않아요.",
+  "receiveFrom": "{name}님이 보냈어요",
+  "@receiveFrom": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "receiveTitle": "사슬 가져오기",
+  "receiveBadgeNoLocation": "위치 정보 없이 전송됨",
+  "receiveQuestion": "어떻게 가져올까요?",
+  "receiveOnly": "이 기록만 가져오기",
+  "receiveOnlyDesc": "사슬이 통째로 타임라인에 붙어요. 알림은 울리지 않아요.",
+  "receiveAdopt": "살아있는 루프로 이어받기",
+  "receiveAdoptDesc": "반복이 내 알림으로 다시 울려요. 지금부터 내 시간표로 맞춰요.",
+  "receiveImport": "가져오기",
+  "receiveDecline": "거절",
+  "receiveDone": "가져왔어요",
+  "receiveDoneDesc": "{count}개 기록이 내 타임라인에 그대로 붙었어요.",
+  "@receiveDoneDesc": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "receiveAdoptedTitle": "🔁 살아있는 루프로 이어받음",
+  "receiveAdoptedDesc": "발화 이력은 그대로 남고, 알림은 이제 내 시간표로 울려요.",
+  "receiveNextFire": "다음 발화 {time}",
+  "@receiveNextFire": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "viewChainAction": "사슬 보기",
+  "laterAction": "나중에",
+  "receiveFail": "가져오지 못했어요",
+  "shareTapToSend": "눌러서 보내기",
+  "shareWaitingReceiver": "받는 쪽에서 설정 › 가까운 기기에서 받기를 켜면 여기에 나타나요",
+  "shareNotFound": "옆 기기를 찾지 못했어요",
+  "shareRetry": "다시 찾기",
+  "receiveSetting": "가까운 기기에서 받기",
+  "receiveSettingDesc": "앱이 켜져 있는 동안 옆 기기에 내 표시명이 보여요",
+  "shareProgressDetail": "{sent} / {total} · {speed}/s",
+  "@shareProgressDetail": {
+    "placeholders": {
+      "sent": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      },
+      "speed": {
+        "type": "String"
+      }
+    }
+  },
+  "shareEtaSeconds": "약 {seconds}초 남음",
+  "@shareEtaSeconds": {
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
+  "shareEtaMinutes": "약 {minutes}분 남음",
+  "@shareEtaMinutes": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "shareSlowHint": "블루투스로 느리게 가고 있어요. 취소하고 양쪽 다 Wi-Fi를 켠 뒤 다시 보내면 훨씬 빨라요.",
+  "shareStalled": "한동안 진행이 없어 멈췄어요. 두 기기를 가까이 두고 다시 보내 주세요.",
+  "receiveIncoming": "{name}님이 보내는 중",
+  "@receiveIncoming": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "receiveIncomingFailed": "{name}님의 전송이 중단됐어요",
+  "@receiveIncomingFailed": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "shareCleanTitle": "공유 임시 파일 정리",
+  "shareCleanDesc": "{size} · 받다 만 파일과 전송용 임시 파일",
+  "@shareCleanDesc": {
+    "placeholders": {
+      "size": {
+        "type": "String"
+      }
+    }
+  },
+  "shareCleanEmpty": "정리할 파일이 없어요",
+  "shareCleanConfirm": "지금 주고받는 중인 파일은 남기고 지워요.",
+  "shareCleanAction": "정리",
+  "shareCleanDone": "{size} 정리했어요",
+  "@shareCleanDone": {
+    "placeholders": {
+      "size": {
+        "type": "String"
+      }
+    }
+  },
+  "alarmPermTitle": "알람이 화면에 뜨려면 권한이 필요해요",
+  "alarmPermBody": "지금은 알람이 울려도 소리만 나고 화면에는 뜨지 않아요. '전체 화면 알림'을 허용하면 화면이 꺼져 있어도 잠금 화면 위로 알람이 바로 떠요.",
+  "settingsAppInfo": "앱 정보",
+  "guideOpen": "Loop 사용법",
+  "guideOpenDesc": "기능을 그림으로 한눈에",
+  "guideTitle": "Loop 사용법",
+  "guideIntroTitle": "Loop는 이런 앱이에요",
+  "guideIntroBody": "지나간 생각을 다시 돌아오게 하는 기록장이에요. 지금 생각을 적고 루프를 걸어 두면, 정한 때에 그 기록이 다시 찾아와요.",
+  "guideWriteTitle": "기록 쓰기",
+  "guideWriteBody": "오른쪽 아래 + 를 눌러 지금 생각을 적어요. 사진과 1분 이내 동영상을 붙일 수 있고, 장소와 날씨는 자동으로 남아요(설정 › 위치 기록에서 끌 수 있어요).",
+  "guideLoopTitle": "루프 걸기 — 다시 돌아오게",
+  "guideLoopBody": "기록의 ⋯ › ↩ Loop. '한 번'은 정한 시각에 한 번 돌아와요(망각곡선에 맞춘 시각을 추천해요). 알림은 조용히 한 번, 알람은 확인할 때까지 울려요.",
+  "guideRepeatTitle": "반복 루프",
+  "guideRepeatBody": "루프 시트에서 '반복'을 고르면 10분마다·매일·평일·매달처럼 계속 돌아와요. 돌아올 때마다 그 기록에 이어 쓸 자리가 생겨요. 그만두려면 ⋯ › 루프 중지.",
+  "guideFlowTitle": "이어 쓰기와 루프 보기",
+  "guideFlowBody": "돌아온 기록에 이어 쓰면 보라색 줄로 이어진 사슬이 돼요. ⋯ › 루프 보기로 처음 기록부터 지금까지 한 줄로 모아 봐요. 위쪽 '되돌아가기'를 누르면 전체 타임라인으로 돌아와요.",
+  "guideUpcomingTitle": "다가오는 7일",
+  "guideUpcomingBody": "위쪽 첫 번째 아이콘(다가오는 루프 · 7일)을 누르면 오늘부터 7일 동안 돌아올 루프가 한눈에 보여요.",
+  "guideRhythmTitle": "아침·저녁 리듬",
+  "guideRhythmBody": "그때의 나 아침 알림: 아침 9시에 1주·1달·1년 전 오늘의 기록을 들려줘요. 하루 마무리 시각: '오늘 저녁' 칩과 매일 밤 루프가 이 시각을 써요. 둘 다 설정에서 바꿔요.",
+  "guideShareTitle": "Loop 공유 — 옆 사람에게",
+  "guideShareBody": "기록의 ⋯ › Loop 공유 › 가까운 기기로 보내기. 인터넷·서버 없이 옆 폰으로 바로 가요. 받는 쪽은 설정 › 가까운 기기에서 받기를 켜 두세요. 위치는 기본으로 빼고 보내요.",
+  "guideBackupTitle": "백업 — 전체 내보내기·가져오기",
+  "guideBackupBody": "설정 › 전체 내보내기로 기록·사진·동영상·반복을 .looplog 파일 하나로 저장해요. 새 폰에서는 설정 › 가져오기 — 이미 있는 기록은 건너뛰어요. 가끔씩 내보내 두세요.",
+  "guideStatsTitle": "기록 흐름·검색·날짜 이동",
+  "guideStatsBody": "위쪽 아이콘으로 찾아봐요. 검색은 내용·장소로, 날짜로 이동은 그날로 바로 가요. 기록 흐름에서는 돌아온 횟수, 연속 기록, 가장 길게 이어진 사슬을 볼 수 있어요.",
+  "guideAlarmTitle": "알람이 화면에 뜨게 하기",
+  "guideAlarmBody": "알람이 잠금 화면 위로 뜨려면 '전체 화면 알림' 허용이 필요해요. 안내가 뜨면 설정 열기 › Loop 켜기. 꺼져 있으면 소리만 나요. 설정 › 발화 체험으로 미리 확인해 보세요.",
+  "coachSkip": "건너뛰기",
+  "coachGotIt": "확인",
+  "coachWriteTitle": "지금 떠오르는 걸 적어보세요",
+  "coachWriteBody": "제목도 폴더도 필요 없어요. 머릿속 생각 그대로 남겨보세요.",
+  "coachReserveTitle": "언제 다시 볼지 정해보세요",
+  "coachReserveBody": "10분 뒤, 오늘 밤, 일주일 뒤… 이 생각이 다시 찾아올 때를 골라보세요.",
+  "coachSaveTitle": "저장하면 루프 완성이에요",
+  "coachSaveBody": "정한 시간에 이 생각이 다시 돌아와요.",
+  "coachReturnTitle": "돌아오면 이어서 적어보세요",
+  "coachReturnBody": "알림이 오면 '지금 이어쓰기'를 눌러보세요. 생각이 사슬처럼 이어져요.",
+  "coachArmTitle": "이미 쓴 기록에도 루프를 걸 수 있어요",
+  "coachArmBody": "'Loop 걸기'를 누르면 이 생각이 다시 돌아와요.",
+  "coachReplay": "사용법 다시 보기",
+  "coachReplayDesc": "첫 루프 만들기 안내를 처음부터 다시 보여줘",
+  "pcLinkSettingTitle": "PC 연결",
+  "pcLinkSettingOff": "연결 안 됨",
+  "pcLinkSettingConnected": "연결됨",
+  "pcLinkTitle": "PC 연결",
+  "pcLinkIntro": "맥의 Claude Code가 내 기록을 검색하게 연결합니다. 연결되면 화면을 끄거나 다른 앱을 써도 마지막 사용 후 1시간 동안 유지돼요.",
+  "pcLinkHostLabel": "PC 주소(IP)",
+  "pcLinkHostHint": "예: 192.168.0.8",
+  "pcLinkConnect": "연결",
+  "pcLinkConnecting": "연결 중…",
+  "pcLinkCodeTitle": "페어링 코드",
+  "pcLinkCodeBody": "PC의 Claude에게 “연결 코드 보여줘”라고 물어본 뒤, 안내받은 8자리를 입력하세요.",
+  "pcLinkCodeHint": "8자리 숫자",
+  "pcLinkCodeSubmit": "확인",
+  "pcLinkConnectedTitle": "연결됨",
+  "pcLinkConnectedBody": "Claude가 이제 내 기록을 검색할 수 있어요. 마지막 사용 후 1시간 동안 연결이 유지돼요.",
+  "pcLinkQueries": "검색 응답",
+  "pcLinkDisconnect": "연결 끊기",
+  "pcLinkUnpair": "페어링 해제",
+  "pcLinkErrRefused": "연결할 수 없어요 — PC 주소를 확인하고 Claude Code가 실행 중인지 보세요.",
+  "pcLinkErrTimeout": "응답이 없어요 — PC와 같은 Wi-Fi인지 확인하세요.",
+  "pcLinkErrBadHost": "주소 형식이 올바르지 않아요.",
+  "pcLinkErrCodeWrong": "코드가 맞지 않아요 ({left}회 남음)",
+  "@pcLinkErrCodeWrong": {
+    "placeholders": {
+      "left": {
+        "type": "int"
+      }
+    }
+  },
+  "pcLinkErrTooMany": "시도 횟수를 초과했어요. 잠시 후 다시 시도하세요.",
+  "pcLinkErrBusy": "이미 다른 폰이 연결되어 있어요.",
+  "pcLinkErrCodeExpired": "코드가 만료되었어요. Claude에서 새 코드를 받아 다시 연결하세요.",
+  "pcLinkErrDisconnected": "연결이 끊겼어요.",
+  "pcLinkReconnecting": "연결이 끊겨서 다시 연결하는 중이에요…",
+  "guidePcTitle": "PC에서 Claude로 검색",
+  "guidePcBody": "준비 — 컴퓨터의 Claude Code에 Loop 플러그인을 설치합니다. Claude Code에서 다음 두 줄을 입력하세요: /plugin marketplace add devnoyo0123/loop-skill → /plugin install loop@loop. 그다음 Claude에게 \"폰 연결해줘\"라고 말하면 연결 주소와 8자리 코드를 알려줍니다. ① 설정 → PC 연결에서 그 주소를 입력하고 연결 ② 코드를 입력하면 연결 완료 — 이후에는 자동으로 다시 연결됩니다. 기록은 폰에 그대로 있고, 검색 질의와 결과만 같은 Wi-Fi 안에서 오갑니다."
 }
